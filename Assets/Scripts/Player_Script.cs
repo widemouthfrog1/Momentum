@@ -12,7 +12,7 @@ public class Player_Script : MonoBehaviour
     public Sprite circleSprite;
     public Color circleColour;
 
-    public GameObject piston1;
+    //public GameObject piston1;
 
     //private variables
     private PLAYER_MODE mode;
@@ -52,11 +52,11 @@ public class Player_Script : MonoBehaviour
         {
             if(mode == PLAYER_MODE.SQUARE)
             {
-                FixedJoint2D pistonJoint = piston1.GetComponent<FixedJoint2D>();
-                if (pistonJoint.connectedAnchor.y < 0.001)
-                {
+                //FixedJoint2D pistonJoint = piston1.GetComponent<FixedJoint2D>();
+                //if (pistonJoint.connectedAnchor.y < 0.001)
+               // {
                     mode = PLAYER_MODE.CIRCLE;
-                }
+               // }
             }
             else
             {

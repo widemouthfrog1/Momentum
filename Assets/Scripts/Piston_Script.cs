@@ -21,35 +21,18 @@ public class Piston_Script : MonoBehaviour
     void Start()
     {
         SliderJoint2D slider = GetComponent<SliderJoint2D>();
+        
         //translate and rotate to correct position
         extended = false;
         state = State.RETRACTED;
         buttonHeld = false;
-        //temp code:
-
-        if (direction == "Up")
-        {
-            slider.angle = 270;//rotate limit vector down so piston can move freely upward
-        }
-        if (direction == "Down")
-        {
-            slider.angle = 90;//rotate limit vector up so piston can move freely downward
-        }
-        if (direction == "Left")
-        {
-            slider.angle = 0;//rotate limit vector right so piston can move freely left
-        }
-        if (direction == "Right")
-        {
-            slider.angle = 180;//rotate limit vector left so piston can move freely right
-        }
-        Debug.Log(slider.angle);
         //set limits to zero so pistons don't randomy slide out
         JointTranslationLimits2D limits = new JointTranslationLimits2D();
         limits.max = 0;
         limits.min = 0;
         slider.limits = limits;
         slider.useMotor = true;
+        slider.enabled = true;
 
     }
 
@@ -61,10 +44,11 @@ public class Piston_Script : MonoBehaviour
 
     void FixedUpdate()
     {
-
+        
         SliderJoint2D slider = GetComponent<SliderJoint2D>();
+        slider.enabled = true;
         CircleCollider2D playerCircleCollider = player.GetComponent<CircleCollider2D>();
-        Debug.Log(slider.angle);
+        //Debug.Log(slider.angle);
         if (!playerCircleCollider.enabled)
         {
             //Finite State Machine:
@@ -73,7 +57,7 @@ public class Piston_Script : MonoBehaviour
                 if (buttonHeld)
                 {
                     JointTranslationLimits2D limits = new JointTranslationLimits2D();
-                    limits.max = 0.3f;
+                    limits.max = 0.35f;
                     limits.min = 0;
                     slider.limits = limits;
                     state = State.EXTENDING;
@@ -92,7 +76,7 @@ public class Piston_Script : MonoBehaviour
             else if (state == State.EXTENDING)
             {
                 // Debug.Log(slider.jointTranslation);
-                if (slider.jointTranslation >= 0.3f) //assuming 0.3 is max
+                if (slider.jointTranslation >= 0.35f) //assuming 0.3 is max
                 {
                     FixedJoint2D joint = GetComponent<FixedJoint2D>();
                     joint.enabled = true;

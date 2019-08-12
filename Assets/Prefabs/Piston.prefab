@@ -72,7 +72,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 2
   m_Sprite: {fileID: 3386662938922423588, guid: 5d403c3514f2748bfb9dc8a325176a58,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -125,10 +125,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   player: {fileID: 0}
   direction: Down
-  extendSpeed: 50
+  extendSpeed: 100
   extendForce: 50
-  retractSpeed: 50
-  retractForce: 50
+  retractSpeed: 2
+  retractForce: 20
   extended: 0
   buttonHeld: 0
 --- !u!50 &257298902204290122
@@ -177,7 +177,7 @@ SliderJoint2D:
   m_UseLimits: 1
   m_TranslationLimits:
     m_LowerTranslation: 0
-    m_UpperTranslation: 0.3
+    m_UpperTranslation: 0.2
 --- !u!255 &257298902204290127
 FixedJoint2D:
   m_ObjectHideFlags: 0

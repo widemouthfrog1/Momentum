@@ -12,7 +12,7 @@ public class Player_Script : MonoBehaviour
     public Sprite circleSprite;
     public Color circleColour;
 
-    public GameObject piston1;
+    public GameObject pistons;
 
     //private variables
     private PLAYER_MODE mode;
@@ -52,7 +52,15 @@ public class Player_Script : MonoBehaviour
         {
             if(mode == PLAYER_MODE.SQUARE)
             {
-                if (!piston1.GetComponent<Piston_Script>().extended)
+                bool allPistonsRetracted = true;
+                foreach (Transform child in pistons.transform)
+                {
+                    if (child.gameObject.GetComponent<Piston_Script>().extended)
+                    {
+                        allPistonsRetracted = false;
+                    }
+                }
+                if (allPistonsRetracted)
                 {
                     mode = PLAYER_MODE.CIRCLE;
                 }

@@ -15,6 +15,7 @@ public class Piston_Script : MonoBehaviour
 
     private enum State {RETRACTED, RETRACTING, EXTENDED, EXTENDING}
     private State state;
+    public Vector2 centerOfMass;
 
     public bool buttonHeld;
     // Start is called before the first frame update
@@ -33,7 +34,8 @@ public class Piston_Script : MonoBehaviour
         slider.limits = limits;
         slider.useMotor = true;
         slider.enabled = true;
-
+        Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+        centerOfMass = rigidbody.centerOfMass;
     }
 
     // Update is called once per frame
@@ -56,7 +58,7 @@ public class Piston_Script : MonoBehaviour
                 if (buttonHeld)
                 {
                     JointTranslationLimits2D limits = new JointTranslationLimits2D();
-                    limits.max = 0.35f;
+                    limits.max = 0.34f;
                     limits.min = 0;
                     slider.limits = limits;
                     state = State.EXTENDING;
@@ -75,7 +77,7 @@ public class Piston_Script : MonoBehaviour
             else if (state == State.EXTENDING)
             {
                 // Debug.Log(slider.jointTranslation);
-                if (slider.jointTranslation >= 0.35f) //assuming 0.35 is max
+                if (slider.jointTranslation >= 0.34f) //assuming 0.35 is max
                 {
                     FixedJoint2D joint = GetComponent<FixedJoint2D>();
                     joint.enabled = true;
@@ -110,6 +112,11 @@ public class Piston_Script : MonoBehaviour
                     retractPiston();
                 }
             }
+        }
+        else
+        {
+            Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+            rigidbody.centerOfMass = new Vector2(centerOfMass.x, centerOfMass.y + 0.1f);
         }
     }
 

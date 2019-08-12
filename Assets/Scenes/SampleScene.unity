@@ -17043,6 +17043,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1327352758 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 257298902204290116, guid: 47939ffaa44a08e4ba12f76f40012eac,
+    type: 3}
+  m_PrefabInstance: {fileID: 257298903460863986}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1558690776
 GameObject:
   m_ObjectHideFlags: 0
@@ -17188,6 +17194,7 @@ MonoBehaviour:
   circleSprite: {fileID: 6813553822765877458, guid: 5d403c3514f2748bfb9dc8a325176a58,
     type: 3}
   circleColour: {r: 1, g: 1, b: 1, a: 1}
+  piston1: {fileID: 1327352758}
 --- !u!61 &1628665752
 BoxCollider2D:
   m_ObjectHideFlags: 0

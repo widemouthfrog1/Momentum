@@ -48,7 +48,6 @@ public class Piston_Script : MonoBehaviour
         SliderJoint2D slider = GetComponent<SliderJoint2D>();
         slider.enabled = true;
         CircleCollider2D playerCircleCollider = player.GetComponent<CircleCollider2D>();
-        //Debug.Log(slider.angle);
         if (!playerCircleCollider.enabled)
         {
             //Finite State Machine:
@@ -76,7 +75,7 @@ public class Piston_Script : MonoBehaviour
             else if (state == State.EXTENDING)
             {
                 // Debug.Log(slider.jointTranslation);
-                if (slider.jointTranslation >= 0.35f) //assuming 0.3 is max
+                if (slider.jointTranslation >= 0.35f) //assuming 0.35 is max
                 {
                     FixedJoint2D joint = GetComponent<FixedJoint2D>();
                     joint.enabled = true;
@@ -143,5 +142,6 @@ public class Piston_Script : MonoBehaviour
         motor.maxMotorTorque = retractForce;
         motor.motorSpeed = -retractSpeed;//needs to be negative as going in other direction
         slider.motor = motor;
+        extended = false;
     }
 }

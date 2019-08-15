@@ -13,7 +13,8 @@ In order to move forward the player must work out how they con progress given th
 No external libraries or assets were used
 
 ## How to play
-Controls:\n
+Controls:
+
 a to roll left.
 
 d to roll right.
@@ -22,7 +23,8 @@ s to change between circle and square.
 
 space to extend pistons while you're a square (release to retract)
 
-That's pretty much it
+
+That's pretty much it.
 
 ## Challenging/Interestng Parts
 The slider joints required to make the pistons extend don't stay out very well on their own, they bonce around like weak springs. To fix this, I added a fixed joint to the piston that gets activated whenever the piston is fully retracted or extended and gets deactivated on button press/release. I made a finite state machine to get my head around it.

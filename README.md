@@ -15,8 +15,11 @@ No external libraries or assets were used
 ## How to play
 Controls:
 a to roll left.
+
 d to roll right.
+
 s to change between circle and square.
+
 space to extend pistons while you're a square (release to retract)
 
 That's pretty much it

@@ -13,7 +13,7 @@ In order to move forward the player must work out how they con progress given th
 No external libraries or assets were used
 
 ## How to play
-Controls:
+Controls:\n
 a to roll left.
 
 d to roll right.

@@ -52,6 +52,9 @@ public class Piston_Script : MonoBehaviour
         CircleCollider2D playerCircleCollider = player.GetComponent<CircleCollider2D>();
         if (!playerCircleCollider.enabled)
         {
+            Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+            rigidbody.centerOfMass = new Vector2(centerOfMass.x, centerOfMass.y);
+
             //Finite State Machine:
             if (state == State.RETRACTED)
             {
@@ -116,7 +119,8 @@ public class Piston_Script : MonoBehaviour
         else
         {
             Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
-            rigidbody.centerOfMass = new Vector2(centerOfMass.x, centerOfMass.y + 0.1f);
+            rigidbody.centerOfMass = new Vector2(0,0);
+
         }
     }
 

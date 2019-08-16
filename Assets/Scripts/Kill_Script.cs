@@ -35,6 +35,7 @@ public class Kill_Script : MonoBehaviour
         }
     }
 
+    //teleports the player to the last activated checkpoint
     private void kill()
     {
         Rigidbody2D playerRigidbody = player.GetComponent<Rigidbody2D>();

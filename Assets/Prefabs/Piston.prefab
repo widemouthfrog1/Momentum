@@ -130,6 +130,7 @@ MonoBehaviour:
   retractSpeed: 2
   retractForce: 20
   extended: 0
+  centerOfMass: {x: 0, y: 0}
   buttonHeld: 0
 --- !u!50 &257298902204290122
 Rigidbody2D:

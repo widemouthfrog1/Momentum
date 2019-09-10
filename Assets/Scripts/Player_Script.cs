@@ -12,13 +12,16 @@ public class Player_Script : MonoBehaviour
     public Sprite circleSprite;
     public Color circleColour;
 
+    //The pistons this player is attached to
     public GameObject pistons;
 
     //private variables
+
+    //Circle or square
     private PLAYER_MODE mode;
 
-
-    private float rotation;
+    //The input of the player, what direction they want to roll in
+    private float angularAcceleration; 
 
     
 
@@ -43,9 +46,12 @@ public class Player_Script : MonoBehaviour
         updateColliders();
 
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
-        rigidBody.AddTorque(rotation);
+        rigidBody.AddTorque(angularAcceleration);
     }
 
+    /**
+     * Changes the mode of the player and the angular acceleration based on player input
+     */
     private void handleControls()
     {
         if (Input.GetButtonDown("Transform"))
@@ -71,9 +77,12 @@ public class Player_Script : MonoBehaviour
             }
             
         }
-        rotation = -Input.GetAxis("Horizontal");
+        angularAcceleration = -Input.GetAxis("Horizontal");
     }
 
+    /**
+     * Changes the sprite of the player based on the mode
+     */
     private void updateSprite()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
@@ -96,6 +105,9 @@ public class Player_Script : MonoBehaviour
         }
     }
 
+    /**
+     * Changes the collider of the player based on the mode
+     */
     private void updateColliders()
     {
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
@@ -123,6 +135,6 @@ public class Player_Script : MonoBehaviour
     {
         //defaults to square when player is created
         mode = PLAYER_MODE.SQUARE;
-        rotation = 0;
+        angularAcceleration = 0;
     }
 }

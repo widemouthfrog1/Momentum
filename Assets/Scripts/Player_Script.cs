@@ -43,7 +43,10 @@ public class Player_Script : MonoBehaviour
 
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.AddTorque(angularAcceleration);
-        applyFriction();
+        if (angularAcceleration != 0)
+        {
+            applyFriction();
+        }
     }
 
     /**

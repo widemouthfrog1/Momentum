@@ -5,7 +5,7 @@ using UnityEngine;
 public class Piston_Script : MonoBehaviour
 {
     public GameObject player;
-    public string direction;//up,down,left,right
+    public string direction;//"up", "down", "left", or "right"
     public float extendSpeed;
     public float extendForce;
     public float retractSpeed;

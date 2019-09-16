@@ -21428,11 +21428,6 @@ PrefabInstance:
       propertyPath: m_ConnectedRigidBody
       value: 
       objectReference: {fileID: 1474585599}
-    - target: {fileID: 257298902204290120, guid: 47939ffaa44a08e4ba12f76f40012eac,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 257298902204290123, guid: 47939ffaa44a08e4ba12f76f40012eac,
         type: 3}
       propertyPath: m_Offset.y
@@ -21452,6 +21447,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.x
       value: 1.4083645
+      objectReference: {fileID: 0}
+    - target: {fileID: 257298902204290120, guid: 47939ffaa44a08e4ba12f76f40012eac,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 47939ffaa44a08e4ba12f76f40012eac, type: 3}

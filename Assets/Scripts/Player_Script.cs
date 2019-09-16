@@ -15,6 +15,10 @@ public class Player_Script : MonoBehaviour
     [SerializeField]
     private GameObject pistons = null;
 
+    // Rate at which angular velocity is removed from the player
+    [SerializeField]
+    private float frictionCoefficient = 0;
+
     //Circle or square
     private PLAYER_MODE mode;
 
@@ -43,10 +47,7 @@ public class Player_Script : MonoBehaviour
 
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.AddTorque(angularAcceleration);
-        if (angularAcceleration != 0)
-        {
-            applyFriction();
-        }
+        applyFriction();
     }
 
     /**
@@ -142,19 +143,29 @@ public class Player_Script : MonoBehaviour
     private void applyFriction()
     {
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
-        if (Math.Abs(rigidBody.angularVelocity) < 0.08)
+        if (angularAcceleration == 0)
         {
-            rigidBody.angularVelocity = 0;
+            if (Math.Abs(rigidBody.angularVelocity) < frictionCoefficient)
+            {
+                rigidBody.angularVelocity = 0;
+            }
+            else if (rigidBody.angularVelocity > 0)
+            {
+                rigidBody.AddTorque(-frictionCoefficient);
+            }
+            else if (rigidBody.angularVelocity < 0)
+            {
+                rigidBody.AddTorque(frictionCoefficient);
+            }
         }
-        else if (rigidBody.angularVelocity > 0)
-        {
-            rigidBody.AddTorque(-0.08f);
-        }
-        else if (rigidBody.angularVelocity < 0)
-        {
-            rigidBody.AddTorque(0.08f);
-        }
-        
+        // else if (angularAcceleration > 0 && rigidBody.velocity.x < 0)
+        // {
+        //     rigidBody.AddTorque(frictionCoefficient);
+        // }
+        // else if (angularAcceleration < 0 && rigidBody.velocity.x > 0)
+        // {
+        //     rigidBody.AddTorque(-frictionCoefficient);
+        // }
     }
 
     private void initialiseVariables()

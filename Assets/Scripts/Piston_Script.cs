@@ -4,20 +4,21 @@ using UnityEngine;
 
 public class Piston_Script : MonoBehaviour
 {
-    public GameObject player;
-    public string direction;//up,down,left,right
-    public float extendSpeed;
-    public float extendForce;
-    public float retractSpeed;
-    public float retractForce;
+    [SerializeField]
+    private GameObject player = null;
 
-    public bool extended;//true if partially or fully extended
+    [SerializeField]
+    private string direction;    //up,down,left,right
 
+    [SerializeField]
+    private float extendSpeed = 0, extendForce = 0, retractSpeed = 0, retractForce = 0;
+
+    private bool extended = false;   //true if partially or fully extended
     private enum State {RETRACTED, RETRACTING, EXTENDED, EXTENDING}
     private State state;
-    public Vector2 centerOfMass;
+    private Vector2 centerOfMass;
+    private bool buttonHeld;
 
-    public bool buttonHeld;
     // Start is called before the first frame update
     void Start()
     {
@@ -79,7 +80,6 @@ public class Piston_Script : MonoBehaviour
             }
             else if (state == State.EXTENDING)
             {
-                // Debug.Log(slider.jointTranslation);
                 if (slider.jointTranslation >= 0.34f) //assuming 0.35 is max
                 {
                     FixedJoint2D joint = GetComponent<FixedJoint2D>();
@@ -154,5 +154,11 @@ public class Piston_Script : MonoBehaviour
         motor.motorSpeed = -retractSpeed;//needs to be negative as going in other direction
         slider.motor = motor;
         extended = false;
+    }
+
+    //* returns true if all the pistons are extended */
+    public bool isExtended()
+    {
+        return extended;
     }
 }

@@ -4,13 +4,17 @@ using UnityEngine;
 
 public class Checkpoint_Script : MonoBehaviour
 {
-    public GameObject player;
-    public bool activated;
+    [SerializeField]
+    private GameObject player = null;
+
+    private bool activated;
+    private bool activatedBefore;
     
     // Start is called before the first frame update
     void Start()
     {
         activated = false;
+        activatedBefore = false;
     }
 
     // Update is called once per frame
@@ -37,10 +41,19 @@ public class Checkpoint_Script : MonoBehaviour
 
     private void activate()
     {
+        if (activatedBefore) {
+            return;
+        }
+
         foreach (Transform child in transform.parent)
         {
             child.gameObject.GetComponent<Checkpoint_Script>().activated = false;
         }
         activated = true;
+        activatedBefore = true;
+    }
+
+    public bool isActive() {
+        return activated;
     }
 }

@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Kill_Script : MonoBehaviour
 {
-    public GameObject checkpoints;
-    public GameObject pistons;
-    public GameObject player;
+    [SerializeField]
+    private GameObject checkpoints = null;
+
+    [SerializeField]
+    private GameObject pistons = null;
+
+    [SerializeField]
+    private GameObject player = null;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,16 +48,19 @@ public class Kill_Script : MonoBehaviour
         GameObject checkpoint = null;
         foreach (Transform child in checkpoints.transform)
         {
-            if (child.gameObject.GetComponent<Checkpoint_Script>().activated)
+            if (child.gameObject.GetComponent<Checkpoint_Script>().isActive())
             {
                 checkpoint = child.gameObject;
             }
         }
-        player.transform.position = new Vector2(checkpoint.transform.position.x, checkpoint.transform.position.y);
         playerRigidbody.angularVelocity = 0;
-        playerRigidbody.velocity = new Vector2(0, 0);
+        playerRigidbody.velocity = Vector2.zero;
+        player.transform.position = new Vector2(checkpoint.transform.position.x, checkpoint.transform.position.y);
         foreach (Transform child in pistons.transform)
         {
+            Rigidbody2D childRigidbody = child.gameObject.GetComponent<Rigidbody2D>();
+            childRigidbody.angularVelocity = 0;
+            childRigidbody.velocity = Vector2.zero;
             child.position = new Vector2(checkpoint.transform.position.x, checkpoint.transform.position.y);
         }
     }

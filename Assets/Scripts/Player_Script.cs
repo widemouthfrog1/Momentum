@@ -1,29 +1,29 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 enum PLAYER_MODE {SQUARE, CIRCLE}
 
 public class Player_Script : MonoBehaviour
 {
-    //public variables
-    public Sprite squareSprite;
-    public Color squareColour;
-    public Sprite circleSprite;
-    public Color circleColour;
+    // The Sprites for the different shapes
+    [SerializeField]
+    private Sprite squareSprite = null, circleSprite = null;
 
     //The pistons this player is attached to
-    public GameObject pistons;
+    [SerializeField]
+    private GameObject pistons = null;
 
-    //private variables
+    // Rate at which angular velocity is removed from the player
+    [SerializeField]
+    private float frictionCoefficient = 0;
 
     //Circle or square
     private PLAYER_MODE mode;
 
     //The input of the player, what direction they want to roll in
-    private float angularAcceleration; 
-
-    
+    private float angularAcceleration;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +47,7 @@ public class Player_Script : MonoBehaviour
 
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.AddTorque(angularAcceleration);
+        applyFriction();
     }
 
     /**
@@ -54,6 +55,8 @@ public class Player_Script : MonoBehaviour
      */
     private void handleControls()
     {
+        Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
+
         if (Input.GetButtonDown("Transform"))
         {
             if(mode == PLAYER_MODE.SQUARE)
@@ -61,7 +64,7 @@ public class Player_Script : MonoBehaviour
                 bool allPistonsRetracted = true;
                 foreach (Transform child in pistons.transform)
                 {
-                    if (child.gameObject.GetComponent<Piston_Script>().extended)
+                    if (child.gameObject.GetComponent<Piston_Script>().isExtended())
                     {
                         allPistonsRetracted = false;
                     }
@@ -73,6 +76,11 @@ public class Player_Script : MonoBehaviour
             }
             else
             {
+                foreach (Transform child in pistons.transform)
+                {
+                    child.gameObject.GetComponent<Rigidbody2D>().rotation = 0;
+                }
+                rigidBody.rotation = 0;
                 mode = PLAYER_MODE.SQUARE;
             }
             
@@ -92,7 +100,6 @@ public class Player_Script : MonoBehaviour
             if (!spriteRenderer.sprite.Equals(squareSprite))
             {
                 spriteRenderer.sprite = squareSprite;
-                spriteRenderer.color = squareColour;
             }
         }
         if (mode == PLAYER_MODE.CIRCLE)
@@ -100,7 +107,6 @@ public class Player_Script : MonoBehaviour
             if (!spriteRenderer.sprite.Equals(circleSprite))
             {
                 spriteRenderer.sprite = circleSprite;
-                spriteRenderer.color = circleColour;
             }
         }
     }
@@ -129,6 +135,37 @@ public class Player_Script : MonoBehaviour
             }
             boxCollider.enabled = false;
         }
+    }
+
+    /**
+    * Will apply a torque to the player so that they will eventually stop rolling by themselves
+    */
+    private void applyFriction()
+    {
+        Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
+        if (angularAcceleration == 0)
+        {
+            if (Math.Abs(rigidBody.angularVelocity) < frictionCoefficient)
+            {
+                rigidBody.angularVelocity = 0;
+            }
+            else if (rigidBody.angularVelocity > 0)
+            {
+                rigidBody.AddTorque(-frictionCoefficient);
+            }
+            else if (rigidBody.angularVelocity < 0)
+            {
+                rigidBody.AddTorque(frictionCoefficient);
+            }
+        }
+        // else if (angularAcceleration > 0 && rigidBody.velocity.x < 0)
+        // {
+        //     rigidBody.AddTorque(frictionCoefficient);
+        // }
+        // else if (angularAcceleration < 0 && rigidBody.velocity.x > 0)
+        // {
+        //     rigidBody.AddTorque(-frictionCoefficient);
+        // }
     }
 
     private void initialiseVariables()

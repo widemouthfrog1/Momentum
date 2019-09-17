@@ -25,11 +25,11 @@ public class Timer_Script : MonoBehaviour
     {
         Checkpoint_Script starterScript = starter.GetComponent<Checkpoint_Script>();
         Checkpoint_Script stopperScript = stopper.GetComponent<Checkpoint_Script>();
-        if (starterScript.activated)
+        if (starterScript.isActive())
         {
             timerActive = true;
         }
-        if (stopperScript.activated)
+        if (stopperScript.isActive())
         {
             timerActive = false;
         }

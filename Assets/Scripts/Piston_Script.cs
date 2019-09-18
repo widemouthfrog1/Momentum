@@ -13,7 +13,8 @@ public class Piston_Script : MonoBehaviour
     [SerializeField]
     private float extendSpeed = 0, extendForce = 0, retractSpeed = 0, retractForce = 0;
 
-    private bool extended = false;   //true if partially or fully extended
+    //Uncomment to test states at runtime
+    //[SerialzeField]
     private enum State {RETRACTED, RETRACTING, EXTENDED, EXTENDING}
     private State state;
     private Vector2 centerOfMass;
@@ -23,9 +24,6 @@ public class Piston_Script : MonoBehaviour
     void Start()
     {
         SliderJoint2D slider = GetComponent<SliderJoint2D>();
-        
-        //translate and rotate to correct position
-        extended = false;
         state = State.RETRACTED;
         buttonHeld = false;
         //set limits to zero so pistons don't randomy slide out
@@ -98,6 +96,8 @@ public class Piston_Script : MonoBehaviour
             }
             else if (state == State.RETRACTING)
             {
+                // TODO: make piston retraction speed stronger as time goes on
+
                 if (slider.jointTranslation <= 0) //assuming 0 is min
                 {
                     JointTranslationLimits2D limits = new JointTranslationLimits2D();
@@ -120,7 +120,6 @@ public class Piston_Script : MonoBehaviour
         {
             Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
             rigidbody.centerOfMass = new Vector2(0,0);
-
         }
     }
 
@@ -129,7 +128,6 @@ public class Piston_Script : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             buttonHeld = true;
-            extended = true;
         }
         if (Input.GetButtonUp("Jump"))
         {
@@ -153,12 +151,13 @@ public class Piston_Script : MonoBehaviour
         motor.maxMotorTorque = retractForce;
         motor.motorSpeed = -retractSpeed;//needs to be negative as going in other direction
         slider.motor = motor;
-        extended = false;
     }
 
-    //* returns true if all the pistons are extended */
+    /** 
+     * returns true if this piston is fully or partially extended 
+     */
     public bool isExtended()
     {
-        return extended;
+        return state == EXTENDING || state == EXTENDED;
     }
 }

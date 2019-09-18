@@ -7,40 +7,33 @@ public class Checkpoint_Script : MonoBehaviour
     [SerializeField]
     private GameObject player = null;
 
+    //if a checkpoint is activated, the player will teleport to this checkpoint when they die/make a mistake
     private bool activated;
     private bool activatedBefore;
     
-    // Start is called before the first frame update
     void Start()
     {
         activated = false;
         activatedBefore = false;
     }
-
-    // Update is called once per frame
+    
     void Update()
     {
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
         BoxCollider2D playerBoxCollider = player.GetComponent<BoxCollider2D>();
         CircleCollider2D playerCircleCollider = player.GetComponent<CircleCollider2D>();
-        if (playerCircleCollider.enabled)
+
+        //if this checkpoint is touching the player, attempt to activate this checkpoint.
+        if (touchingPlayer())
         {
-            if (collider.IsTouching(playerCircleCollider) && !activated) //"!activated" is unnecessary but will improve performance for a very large number of checkpoints
-            {
-                activate();
-            }
-        }
-        else
-        {
-            if (collider.IsTouching(playerBoxCollider) && !activated)
-            {
-                activate();
-            }
+            activate();
         }
     }
 
+    //Sets all other checkpoints in inactive and sets this checkpoint to active. Does nothing if this checkpoint has ever been activated since the start of the level.
     private void activate()
     {
+        //This can be removed for non-linear checkpoints.
         if (activatedBefore) {
             return;
         }
@@ -53,6 +46,20 @@ public class Checkpoint_Script : MonoBehaviour
         activatedBefore = true;
     }
 
+    //Returns true if the player's active collider is touching this checkpoint.
+    private bool touchingPlayer()
+    {
+        if (playerCircleCollider.enabled)
+        {
+            return collider.IsTouching(playerCircleCollider);
+        }
+        else
+        {
+            return collider.IsTouching(playerBoxCollider);
+        }
+    }
+
+    //Returns true if this checkpoint is currently active
     public bool isActive() {
         return activated;
     }

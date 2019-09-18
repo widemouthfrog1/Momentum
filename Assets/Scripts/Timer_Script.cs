@@ -17,7 +17,7 @@ public class Timer_Script : MonoBehaviour
     void Start()
     {
         Text textBox = GetComponent<Text>();
-        textBox.text = minutes + ":" + seconds + ":" + milliseconds;
+        textBox.text = getTime();
     }
 
     // Update is called once per frame
@@ -44,7 +44,13 @@ public class Timer_Script : MonoBehaviour
             }
             seconds = (int)time;
             milliseconds = (int)((time - seconds) * 1000);
-            textBox.text = minutes + ":" + seconds + ":" + milliseconds;
+            textBox.text = getTime();
         }
     }
+
+    //Converts the time into a string
+    private string getTime()
+    {
+        return minutes + ":" + seconds + ":" + milliseconds;
+    } 
 }

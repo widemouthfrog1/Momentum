@@ -24,18 +24,12 @@ public class Player_Script : MonoBehaviour
 
     //The input of the player, what direction they want to roll in
     private float angularAcceleration;
-
-    // Start is called before the first frame update
+    
     void Start()
     {
-        initialiseVariables();
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
+        //defaults to square when player is created
+        mode = PLAYER_MODE.SQUARE;
+        angularAcceleration = 0;
     }
 
     //FixedUpdate is called once every physics calculation
@@ -47,6 +41,10 @@ public class Player_Script : MonoBehaviour
 
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.AddTorque(angularAcceleration);
+
+        // TODO: make friction only apply to the circle and only when touching a surface.
+        // TODO: make friction apply when the circle is moving in one direction but spinning against it to speed up slowing down.
+        // TODO: test friction as a force instead of a torque.
         applyFriction();
     }
 
@@ -166,12 +164,5 @@ public class Player_Script : MonoBehaviour
         // {
         //     rigidBody.AddTorque(-frictionCoefficient);
         // }
-    }
-
-    private void initialiseVariables()
-    {
-        //defaults to square when player is created
-        mode = PLAYER_MODE.SQUARE;
-        angularAcceleration = 0;
     }
 }

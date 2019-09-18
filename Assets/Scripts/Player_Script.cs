@@ -45,7 +45,9 @@ public class Player_Script : MonoBehaviour
         // TODO: make friction only apply to the circle and only when touching a surface.
         // TODO: make friction apply when the circle is moving in one direction but spinning against it to speed up slowing down.
         // TODO: test friction as a force instead of a torque.
-        applyFriction();
+        
+        //I have commented this out because it it currently buggy/not working as intended
+        //applyFriction();
     }
 
     /**

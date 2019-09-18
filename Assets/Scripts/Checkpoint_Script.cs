@@ -19,10 +19,6 @@ public class Checkpoint_Script : MonoBehaviour
     
     void Update()
     {
-        BoxCollider2D collider = GetComponent<BoxCollider2D>();
-        BoxCollider2D playerBoxCollider = player.GetComponent<BoxCollider2D>();
-        CircleCollider2D playerCircleCollider = player.GetComponent<CircleCollider2D>();
-
         //if this checkpoint is touching the player, attempt to activate this checkpoint.
         if (touchingPlayer())
         {
@@ -49,6 +45,9 @@ public class Checkpoint_Script : MonoBehaviour
     //Returns true if the player's active collider is touching this checkpoint.
     private bool touchingPlayer()
     {
+        BoxCollider2D collider = GetComponent<BoxCollider2D>();
+        BoxCollider2D playerBoxCollider = player.GetComponent<BoxCollider2D>();
+        CircleCollider2D playerCircleCollider = player.GetComponent<CircleCollider2D>();
         if (playerCircleCollider.enabled)
         {
             return collider.IsTouching(playerCircleCollider);

@@ -7,8 +7,8 @@ public class Piston_Script : MonoBehaviour
     [SerializeField]
     private GameObject player = null;
 
-    [SerializeField]
-    private string direction;    //up,down,left,right
+    //[SerializeField]
+    //private string direction;    //up,down,left,right
 
     [SerializeField]
     private float extendSpeed = 0, extendForce = 0, retractSpeed = 0, retractForce = 0;

@@ -20,6 +20,8 @@ public class Piston_Script : MonoBehaviour
     private Vector2 centerOfMass;
     private bool buttonHeld;
     private bool wasCircle;
+    private float retractionTime;
+    private float originalRetractForce;
 
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,8 @@ public class Piston_Script : MonoBehaviour
         Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
         centerOfMass = rigidbody.centerOfMass;
         wasCircle = false;
+        retractionTime = 0;
+        originalRetractForce = retractForce;
     }
 
     // Update is called once per frame
@@ -114,6 +118,8 @@ public class Piston_Script : MonoBehaviour
                     limits.max = 0;
                     limits.min = 0;
                     slider.limits = limits;
+                    retractionTime = 0;
+                    retractForce = originalRetractForce;
                     state = State.RETRACTED;
                 }
                 else if (buttonHeld)
@@ -159,6 +165,11 @@ public class Piston_Script : MonoBehaviour
 
     private void retractPiston()
     {
+        retractionTime += Time.deltaTime;
+        if(retractionTime > 0.1)
+        {
+            retractForce *= 2;
+        }
         SliderJoint2D slider = GetComponent<SliderJoint2D>();
         JointMotor2D motor = new JointMotor2D();
         motor.maxMotorTorque = retractForce;

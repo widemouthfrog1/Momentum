@@ -19,6 +19,7 @@ public class Piston_Script : MonoBehaviour
     private State state;
     private Vector2 centerOfMass;
     private bool buttonHeld;
+    private bool wasCircle;
 
     // Start is called before the first frame update
     void Start()
@@ -35,6 +36,7 @@ public class Piston_Script : MonoBehaviour
         slider.enabled = true;
         Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
         centerOfMass = rigidbody.centerOfMass;
+        wasCircle = false;
     }
 
     // Update is called once per frame
@@ -45,22 +47,30 @@ public class Piston_Script : MonoBehaviour
 
     void FixedUpdate()
     {
-        
+        BoxCollider2D pistonCollider = GetComponent<BoxCollider2D>();
         SliderJoint2D slider = GetComponent<SliderJoint2D>();
-        slider.enabled = true;
+        Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        
         CircleCollider2D playerCircleCollider = player.GetComponent<CircleCollider2D>();
         if (!playerCircleCollider.enabled)
         {
-            Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
-            rigidbody.centerOfMass = new Vector2(centerOfMass.x, centerOfMass.y);
-
+            if (wasCircle)
+            {
+                rigidbody.gravityScale = 1.0f;
+                rigidbody.position = player.GetComponent<Rigidbody2D>().position;
+                pistonCollider.enabled = true;
+                slider.enabled = true;
+                spriteRenderer.enabled = true;
+                wasCircle = false;
+            }
             //Finite State Machine:
             if (state == State.RETRACTED)
             {
                 if (buttonHeld)
                 {
                     JointTranslationLimits2D limits = new JointTranslationLimits2D();
-                    limits.max = 0.3f;
+                    limits.max = 0.34f;
                     limits.min = 0;
                     slider.limits = limits;
                     state = State.EXTENDING;
@@ -118,8 +128,11 @@ public class Piston_Script : MonoBehaviour
         }
         else
         {
-            Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
-            rigidbody.centerOfMass = new Vector2(0,0);
+            rigidbody.gravityScale = 0.0f;
+            pistonCollider.enabled = false;
+            slider.enabled = false;
+            spriteRenderer.enabled = false;
+            wasCircle = true;
         }
     }
 

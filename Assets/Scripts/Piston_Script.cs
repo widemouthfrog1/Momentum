@@ -60,7 +60,7 @@ public class Piston_Script : MonoBehaviour
                 if (buttonHeld)
                 {
                     JointTranslationLimits2D limits = new JointTranslationLimits2D();
-                    limits.max = 0.34f;
+                    limits.max = 0.3f;//0.34f
                     limits.min = 0;
                     slider.limits = limits;
                     state = State.EXTENDING;

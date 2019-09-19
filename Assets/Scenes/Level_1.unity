@@ -655,16 +655,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3247596094436520129, guid: 3167288ff35afc34abd5ce538ffd8e95,
-        type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 3247596094436521788, guid: 3167288ff35afc34abd5ce538ffd8e95,
         type: 3}
       propertyPath: pistons
       value: 
       objectReference: {fileID: 829996914}
+    - target: {fileID: 3247596094436520129, guid: 3167288ff35afc34abd5ce538ffd8e95,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3167288ff35afc34abd5ce538ffd8e95, type: 3}
 --- !u!50 &1574198433 stripped

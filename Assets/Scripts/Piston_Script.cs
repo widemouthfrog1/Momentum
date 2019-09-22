@@ -161,4 +161,10 @@ public class Piston_Script : MonoBehaviour
     {
         return extended;
     }
+
+    // Returns true if the piston is retracted
+    public bool isRetracted()
+    {
+        return state == State.RETRACTED;
+    }
 }

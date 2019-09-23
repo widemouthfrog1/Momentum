@@ -20,7 +20,7 @@ public class TopOnlyPlatform : MonoBehaviour
     {
         platform = GetComponent<BoxCollider2D>();
         platform.enabled = false;
-        platformTop = transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2;
+        platformTop = transform.position.y + GetComponent<SpriteRenderer>().bounds.size.y / 2 - 0.15f;       // the 0.15 is gives leeway if the calculation is slightly inaccurate
     }
 
     // Update is called once per frame
@@ -32,7 +32,7 @@ public class TopOnlyPlatform : MonoBehaviour
 
         if (playerBox.enabled)
         {
-            if (playerRigid.position.y - boxBottom() > (platformTop - 0.1))     // checks if the bottom of the box is higher than the top of the platform, with some leeway
+            if (playerRigid.position.y - boxBottom() > platformTop)     // checks if the bottom of the box is higher than the top of the platform, with some leeway
             {
                 // Do nothing if the platform has already been activated
                 if (platform.enabled)
@@ -57,7 +57,7 @@ public class TopOnlyPlatform : MonoBehaviour
         }
         else if (playerCircle.enabled)
         {
-            if (playerRigid.position.y - player.gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 2 > (platformTop - 0.1))
+            if (playerRigid.position.y - player.gameObject.GetComponent<SpriteRenderer>().bounds.size.y / 2 > platformTop)
             {
                 platform.enabled = true;
             }
@@ -68,7 +68,7 @@ public class TopOnlyPlatform : MonoBehaviour
         }
     }
 
-    // Will return where the bottom of the square is relative to its rotation
+    // Will return where the bottom of the square is relative to its center of rotation
     private float boxBottom()
     {
         float rotation = Mathf.Abs(player.gameObject.GetComponent<Rigidbody2D>().rotation);

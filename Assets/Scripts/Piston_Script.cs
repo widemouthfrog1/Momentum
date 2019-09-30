@@ -166,7 +166,7 @@ public class Piston_Script : MonoBehaviour
     private void retractPiston()
     {
         retractionTime += Time.deltaTime;
-        if(retractionTime > 0.1)
+        if(retractionTime > 0.01)
         {
             retractForce *= 2;
         }

@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class MenuScript : MonoBehaviour
+public class Options : MonoBehaviour
 {
-    public void Play()
+    public void Back()
     {
-        SceneManager.LoadScene("Level_Select");
+        SceneManager.LoadScene("Menu");
     }
 }

@@ -67,6 +67,12 @@ public class Piston_Script : MonoBehaviour
                 slider.enabled = true;
                 spriteRenderer.enabled = true;
                 wasCircle = false;
+
+                /*
+                 Change pistons' rigidbodies to be spinning at same speed as player
+                */
+
+                rigidbody.angularVelocity = player.GetComponent<Rigidbody2D>().angularVelocity;
             }
             //Finite State Machine:
             if (state == State.RETRACTED)

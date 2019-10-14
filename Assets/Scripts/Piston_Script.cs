@@ -67,6 +67,12 @@ public class Piston_Script : MonoBehaviour
                 slider.enabled = true;
                 spriteRenderer.enabled = true;
                 wasCircle = false;
+
+                /*
+                 Change pistons' rigidbodies to be spinning at same speed as player
+                */
+
+                rigidbody.angularVelocity = player.GetComponent<Rigidbody2D>().angularVelocity;
             }
             //Finite State Machine:
             if (state == State.RETRACTED)
@@ -166,7 +172,7 @@ public class Piston_Script : MonoBehaviour
     private void retractPiston()
     {
         retractionTime += Time.deltaTime;
-        if(retractionTime > 0.1)
+        if(retractionTime > 0.01)
         {
             retractForce *= 2;
         }

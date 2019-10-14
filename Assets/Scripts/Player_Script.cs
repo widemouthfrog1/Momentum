@@ -14,10 +14,7 @@ public class Player_Script : MonoBehaviour
     //The pistons this player is attached to
     [SerializeField]
     private GameObject pistons = null;
-
-    // Rate at which angular velocity is removed from the player
-    [SerializeField]
-    private float frictionCoefficient = 0;
+    
 
     //Circle or square
     private PLAYER_MODE mode;
@@ -41,13 +38,7 @@ public class Player_Script : MonoBehaviour
 
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.AddTorque(angularAcceleration);
-
-        // TODO: make friction only apply to the circle and only when touching a surface.
-        // TODO: make friction apply when the circle is moving in one direction but spinning against it to speed up slowing down.
-        // TODO: test friction as a force instead of a torque.
         
-        //I have commented this out because it it currently buggy/not working as intended
-        //applyFriction();
     }
 
     /**
@@ -136,35 +127,5 @@ public class Player_Script : MonoBehaviour
             boxCollider.enabled = false;
         }
     }
-
-    /**
-    * Will apply a torque to the player so that they will eventually stop rolling by themselves
-    */
-    private void applyFriction()
-    {
-        Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
-        if (angularAcceleration == 0)
-        {
-            if (Math.Abs(rigidBody.angularVelocity) < frictionCoefficient)
-            {
-                rigidBody.angularVelocity = 0;
-            }
-            else if (rigidBody.angularVelocity > 0)
-            {
-                rigidBody.AddTorque(-frictionCoefficient);
-            }
-            else if (rigidBody.angularVelocity < 0)
-            {
-                rigidBody.AddTorque(frictionCoefficient);
-            }
-        }
-        // else if (angularAcceleration > 0 && rigidBody.velocity.x < 0)
-        // {
-        //     rigidBody.AddTorque(frictionCoefficient);
-        // }
-        // else if (angularAcceleration < 0 && rigidBody.velocity.x > 0)
-        // {
-        //     rigidBody.AddTorque(-frictionCoefficient);
-        // }
-    }
+    
 }

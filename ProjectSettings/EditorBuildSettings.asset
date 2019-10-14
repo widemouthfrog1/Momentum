@@ -8,7 +8,22 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Momentum.unity
     guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
   - enabled: 1
-    path: Assets/Scenes/Karl's Level.unity
-    guid: d8fafd0521ae8174091a1c66fe83efc7
+    path: Assets/Scenes/Menu.unity
+    guid: f3b0ecbae600f7d478eba7957c899214
+  - enabled: 1
+    path: Assets/Scenes/Level_Select.unity
+    guid: ed6a43e968db00648b9dcd4a5a381d20
+  - enabled: 1
+    path: Assets/Scenes/Options.unity
+    guid: 3c6b5582e49818b439f3253c1e65c13c
+  - enabled: 1
+    path: Assets/Scenes/Level_1.unity
+    guid: ec7630c8526626347b330b20ec3d5e74
+  - enabled: 1
+    path: Assets/Scenes/Level_2.unity
+    guid: 459d2f4aeb9f25f4986f32cd1e4d9515
   m_configObjects: {}

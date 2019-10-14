@@ -138,7 +138,7 @@ public class Player_Script : MonoBehaviour
     {
 
         Vector3 hitPosition = Vector3.zero;
-        if (tilemap != null && tilemapGameObject == collision.gameObject)
+        if (tilemap != null && collision.transform.tag == "Wall" && (horizontalVelocity >= 3 || horizontalVelocity <= -3))
         {
             collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
             foreach (ContactPoint2D hit in collision.contacts)

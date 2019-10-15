@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
  * IMPORTANT
  * When using this prefab it must be placed inside a CANVAS.
  * The scene must also have an EVENTSYSTEM in it or the buttons won't work.
+ * You will need to disable the PauseMenu (one layer inside the PauseMenuObject) otherwise the pause menu will be visable at all times
  */
 public class PauseMenu : MonoBehaviour
 {
@@ -50,6 +51,21 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
+    }
+
+    // Used when clicking on select level button
+    public void SLMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Level_Select");
+    }
+
+    // Used when clicking on menu button
+    // Note: This takes you to the main options menu and will exit the current level
+    public void OptionsMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Options");
     }
 
     // Used when clicking on quit button

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Tilemaps;
 
 enum PLAYER_MODE {SQUARE, CIRCLE}
 
@@ -21,12 +22,17 @@ public class Player_Script : MonoBehaviour
 
     //The input of the player, what direction they want to roll in
     private float angularAcceleration;
-    
+    private float horizontalVelocity;
+
+    private Tilemap tilemap;
+    public GameObject tilemapGameObject;
+
     void Start()
     {
         //defaults to square when player is created
         mode = PLAYER_MODE.SQUARE;
         angularAcceleration = 0;
+        tilemap = tilemapGameObject.GetComponent<Tilemap>();
     }
 
     //FixedUpdate is called once every physics calculation
@@ -38,7 +44,7 @@ public class Player_Script : MonoBehaviour
 
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.AddTorque(angularAcceleration);
-        
+        horizontalVelocity = ((Vector2)rigidBody.velocity).x;
     }
 
     /**
@@ -127,5 +133,27 @@ public class Player_Script : MonoBehaviour
             boxCollider.enabled = false;
         }
     }
-    
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+
+        Vector3 hitPosition = Vector3.zero;
+        if (tilemap != null && collision.transform.tag == "Wall" && (horizontalVelocity >= 3 || horizontalVelocity <= -3))
+        {
+            collision.gameObject.GetComponent<BoxCollider2D>().isTrigger = true;
+            foreach (ContactPoint2D hit in collision.contacts)
+            {
+                hitPosition.x = hit.point.x - 0.01f * hit.normal.x;
+                hitPosition.y = hit.point.y - 0.01f * hit.normal.y;
+                tilemap.SetTile(tilemap.WorldToCell(hitPosition), null);
+            }
+        }
+        /*
+        if (col.transform.tag == "Wall" && (horizontalVelocity >= 3 || horizontalVelocity <= -3))
+        {
+            col.gameObject.GetComponent<Wall>().DamageWall(1);
+        }
+        */
+    }
+
 }

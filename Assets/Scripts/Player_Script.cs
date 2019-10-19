@@ -27,6 +27,7 @@ public class Player_Script : MonoBehaviour
         //defaults to square when player is created
         mode = PLAYER_MODE.SQUARE;
         angularAcceleration = 0;
+        Time.timeScale = 1f;
     }
 
     //FixedUpdate is called once every physics calculation

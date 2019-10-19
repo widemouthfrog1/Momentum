@@ -33,11 +33,6 @@ using System.Collections;
 public class BezierCurveCollider_Editor : Editor {
 
     BezierCurveCollider2D bc;
-    private const float initial_size = 0.25f;
-    private float size;
-    private float zoom;
-    [SerializeField]
-    private bool hideGUI = false;
 
     void OnEnable()
     {
@@ -45,7 +40,6 @@ public class BezierCurveCollider_Editor : Editor {
 
         if (!bc.initialized) bc.Init();
     }
-
 
     public override void OnInspectorGUI()
     {
@@ -76,10 +70,6 @@ public class BezierCurveCollider_Editor : Editor {
             bc.initialized = false;
             bc.Init();
         }
-        if (GUILayout.Button("HideGUI"))
-        {
-            hideGUI = !hideGUI;
-        }
 
         if (GUI.changed)
         {
@@ -89,162 +79,157 @@ public class BezierCurveCollider_Editor : Editor {
 
     void OnSceneGUI()
     {
-        if (!hideGUI)
+        GUI.changed = false;
+        Handles.color = Color.yellow;
+
+        // manage control points
+        for (int i = 0; i < bc.controlPoints.Count; i++)
         {
-            GUI.changed = false;
-            Handles.color = Color.yellow;
+            Vector3 start = bc.controlPoints[i];
+            Vector3 newPos = Handles.FreeMoveHandle(bc.controlPoints[i], Quaternion.identity, .25f, Vector3.zero, Handles.ConeHandleCap);
+            bc.controlPoints[i] = newPos;
 
-            zoom = SceneView.currentDrawingSceneView.camera.orthographicSize;
-            size = zoom * initial_size;
-
-            // manage control points
-            for (int i = 0; i < bc.controlPoints.Count; i++)
+            // if the control point was moved.. offset the joining handler points
+            if (!start.Equals(newPos))
             {
-                Vector3 start = bc.controlPoints[i];
-                Vector3 newPos = Handles.FreeMoveHandle(bc.controlPoints[i], Quaternion.identity, size / 2, Vector3.zero, Handles.ConeHandleCap);
-                bc.controlPoints[i] = newPos;
+                Vector2 offset = newPos - start;
 
-                // if the control point was moved.. offset the joining handler points
-                if (!start.Equals(newPos))
+                // if there are only 2 control points
+                if(bc.controlPoints.Count == 2)
                 {
-                    Vector2 offset = newPos - start;
-
-                    // if there are only 2 control points
-                    if (bc.controlPoints.Count == 2)
+                    bc.handlerPoints[i] += offset;
+                }
+                // if there are more than 2 control points
+                else if (bc.controlPoints.Count > 2)
+                {
+                    // if you moved the first control point
+                    if(i == 0)
                     {
-                        bc.handlerPoints[i] += offset;
+                        bc.handlerPoints[0] += offset; // offset the handle
                     }
-                    // if there are more than 2 control points
-                    else if (bc.controlPoints.Count > 2)
+                    // if you moved the last control point
+                    else if (i == bc.controlPoints.Count - 1)
                     {
-                        // if you moved the first control point
-                        if (i == 0)
-                        {
-                            bc.handlerPoints[0] += offset; // offset the handle
-                        }
-                        // if you moved the last control point
-                        else if (i == bc.controlPoints.Count - 1)
-                        {
-                            bc.handlerPoints[bc.handlerPoints.Count - 1] += offset; // offset the handle
-                        }
-                        // if you moved one of the other control points in the middle
-                        else
-                        {
-                            int ind = (i * 2) - 1;
-                            bc.handlerPoints[ind] += offset; // offset the top handle
-                            bc.handlerPoints[++ind] += offset; // offset the bottom handle
+                        bc.handlerPoints[bc.handlerPoints.Count-1] += offset; // offset the handle
+                    }
+                    // if you moved one of the other control points in the middle
+                    else
+                    {
+                        int ind= (i * 2) - 1;
+                        bc.handlerPoints[ind] += offset; // offset the top handle
+                        bc.handlerPoints[++ind] += offset; // offset the bottom handle
 
-                        }
                     }
                 }
             }
+        }
 
 
-            // manage handler points
-            // when using continous curves
-            if (!bc.continous)
+        // manage handler points
+        // when using continous curves
+        if (!bc.continous)
+        {
+            for (int i = 0; i < bc.handlerPoints.Count; i++)
             {
-                for (int i = 0; i < bc.handlerPoints.Count; i++)
-                {
-                    bc.handlerPoints[i] = Handles.FreeMoveHandle(bc.handlerPoints[i], Quaternion.identity, size, Vector3.zero, Handles.ConeHandleCap);
-                }
+                bc.handlerPoints[i] = Handles.FreeMoveHandle(bc.handlerPoints[i], Quaternion.identity, .5f, Vector3.zero, Handles.ConeHandleCap);
             }
-            else
-            // when using non-continous curves
+        }
+        else
+        // when using non-continous curves
+        {
+            for (int i = 0; i < bc.handlerPoints.Count; i++)
             {
-                for (int i = 0; i < bc.handlerPoints.Count; i++)
+                // if there are only 2 control points
+                if (bc.controlPoints.Count == 2)
                 {
-                    // if there are only 2 control points
-                    if (bc.controlPoints.Count == 2)
+                    bc.handlerPoints[i] = Handles.FreeMoveHandle(bc.handlerPoints[i], Quaternion.identity, .5f, Vector3.zero, Handles.ConeHandleCap);
+                }
+                // if there are more than 2 control points
+                else if (bc.controlPoints.Count > 2)
+                {
+                    // no additional calculations required for the first and last handler points
+                    if (i == 0 || i == bc.handlerPoints.Count - 1)
                     {
-                        bc.handlerPoints[i] = Handles.FreeMoveHandle(bc.handlerPoints[i], Quaternion.identity, size, Vector3.zero, Handles.ConeHandleCap);
+                        bc.handlerPoints[i] = Handles.FreeMoveHandle(bc.handlerPoints[i], Quaternion.identity, .5f, Vector3.zero, Handles.ConeHandleCap);
                     }
-                    // if there are more than 2 control points
-                    else if (bc.controlPoints.Count > 2)
+                    else
                     {
-                        // no additional calculations required for the first and last handler points
-                        if (i == 0 || i == bc.handlerPoints.Count - 1)
-                        {
-                            bc.handlerPoints[i] = Handles.FreeMoveHandle(bc.handlerPoints[i], Quaternion.identity, size, Vector3.zero, Handles.ConeHandleCap);
-                        }
-                        else
-                        {
-                            // changes for the rest of the handler points in the middle
-                            Vector3 start = bc.handlerPoints[i];
-                            Vector3 newPos = Handles.FreeMoveHandle(bc.handlerPoints[i], Quaternion.identity, size, Vector3.zero, Handles.ConeHandleCap);
-                            bc.handlerPoints[i] = newPos;
+                        // changes for the rest of the handler points in the middle
+                        Vector3 start = bc.handlerPoints[i];
+                        Vector3 newPos = Handles.FreeMoveHandle(bc.handlerPoints[i], Quaternion.identity, .5f, Vector3.zero, Handles.ConeHandleCap);
+                        bc.handlerPoints[i] = newPos;
 
-                            if (!start.Equals(newPos))
+                        if (!start.Equals(newPos))
+                        {
+                            bool movedTop = (i % 2 == 1) ? true : false;
+
+                            // if we are moving the top handle
+                            if (movedTop)
                             {
-                                bool movedTop = (i % 2 == 1) ? true : false;
+                                int cp = (i + 1) / 2; // get the control point for this handle
+                                // calc angle of the top handle
+                                Vector2 dir = bc.handlerPoints[i] - bc.controlPoints[cp]; 
+                                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                                angle = (angle + 360) % 360;
 
-                                // if we are moving the top handle
-                                if (movedTop)
-                                {
-                                    int cp = (i + 1) / 2; // get the control point for this handle
-                                                          // calc angle of the top handle
-                                    Vector2 dir = bc.handlerPoints[i] - bc.controlPoints[cp];
-                                    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                                    angle = (angle + 360) % 360;
+                                // adjust the angle of the bottom handle
+                                float magH2 = Vector2.Distance(bc.controlPoints[cp], bc.handlerPoints[i + 1]);
+                                angle = 270 - angle;
 
-                                    // adjust the angle of the bottom handle
-                                    float magH2 = Vector2.Distance(bc.controlPoints[cp], bc.handlerPoints[i + 1]);
-                                    angle = 270 - angle;
+                                float x = bc.controlPoints[cp].x + magH2 * Mathf.Sin(angle * Mathf.Deg2Rad);
+                                float y = bc.controlPoints[cp].y + magH2 * Mathf.Cos(angle * Mathf.Deg2Rad);
 
-                                    float x = bc.controlPoints[cp].x + magH2 * Mathf.Sin(angle * Mathf.Deg2Rad);
-                                    float y = bc.controlPoints[cp].y + magH2 * Mathf.Cos(angle * Mathf.Deg2Rad);
+                                bc.handlerPoints[i + 1] = new Vector2(x, y);
 
-                                    bc.handlerPoints[i + 1] = new Vector2(x, y);
+                            }
+                            else
+                            //if we are moving the bottom handle
+                            {
+                                int cp = i / 2; // get the control point for this handle
+                                // calc the angle of the bottom angle
+                                Vector2 dir = bc.controlPoints[cp] - bc.handlerPoints[i];
+                                float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
+                                angle = (angle + 360) % 360;
 
-                                }
-                                else
-                                //if we are moving the bottom handle
-                                {
-                                    int cp = i / 2; // get the control point for this handle
-                                                    // calc the angle of the bottom angle
-                                    Vector2 dir = bc.controlPoints[cp] - bc.handlerPoints[i];
-                                    float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
-                                    angle = (angle + 360) % 360;
+                                // adjust the angle of top handle
+                                float magH2 = Vector2.Distance(bc.controlPoints[cp], bc.handlerPoints[i - 1]);
+                                angle = 360 - angle + 90;
 
-                                    // adjust the angle of top handle
-                                    float magH2 = Vector2.Distance(bc.controlPoints[cp], bc.handlerPoints[i - 1]);
-                                    angle = 360 - angle + 90;
+                                float x = bc.controlPoints[cp].x + magH2 * Mathf.Sin(angle * Mathf.Deg2Rad);
+                                float y = bc.controlPoints[cp].y + magH2 * Mathf.Cos(angle * Mathf.Deg2Rad);
 
-                                    float x = bc.controlPoints[cp].x + magH2 * Mathf.Sin(angle * Mathf.Deg2Rad);
-                                    float y = bc.controlPoints[cp].y + magH2 * Mathf.Cos(angle * Mathf.Deg2Rad);
-
-                                    bc.handlerPoints[i - 1] = new Vector2(x, y);
-                                }
+                                bc.handlerPoints[i - 1] = new Vector2(x, y);
                             }
                         }
                     }
                 }
             }
+        }
 
 
 
-            // draw a line from the control point to handler points
-            if (bc.handlerPoints.Count == 2)
+        // draw a line from the control point to handler points
+        if (bc.handlerPoints.Count == 2)
+        {
+            Handles.DrawLine(bc.handlerPoints[0], bc.controlPoints[0]);
+            Handles.DrawLine(bc.handlerPoints[1], bc.controlPoints[1]);
+        }
+        else
+        {
+            int c = 0;
+            for (int i = 0; i < bc.handlerPoints.Count; i = i+2)
             {
-                Handles.DrawLine(bc.handlerPoints[0], bc.controlPoints[0]);
-                Handles.DrawLine(bc.handlerPoints[1], bc.controlPoints[1]);
-            }
-            else
-            {
-                int c = 0;
-                for (int i = 0; i < bc.handlerPoints.Count; i = i + 2)
-                {
-                    Handles.DrawLine(bc.handlerPoints[i], bc.controlPoints[c]);
-                    Handles.DrawLine(bc.handlerPoints[i + 1], bc.controlPoints[c + 1]);
-                    c++;
-                }
-            }
-
-
-            if (GUI.changed)
-            {
-                bc.drawCurve();
+                Handles.DrawLine(bc.handlerPoints[i], bc.controlPoints[c]);
+                Handles.DrawLine(bc.handlerPoints[i+1], bc.controlPoints[c+1]);
+                c++;
             }
         }
+
+
+        if (GUI.changed)
+        {
+            bc.drawCurve();
+        }
     }
+
 }

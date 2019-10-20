@@ -21,6 +21,13 @@ public class Player_Script : MonoBehaviour
 
     //The input of the player, what direction they want to roll in
     private float angularAcceleration;
+
+    // For the speed platforms
+    private bool overSpeedPlatform = false;
+    private float accelerationMultiplier = 1f;
+
+    // For collectables
+    private int score = 0;
     
     void Start()
     {
@@ -77,7 +84,13 @@ public class Player_Script : MonoBehaviour
             }
             
         }
-        angularAcceleration = -Input.GetAxis("Horizontal");
+
+        if(overSpeedPlatform)
+            angularAcceleration = -Input.GetAxis("Horizontal") * accelerationMultiplier;
+        else
+            angularAcceleration = -Input.GetAxis("Horizontal");
+
+        Debug.Log(angularAcceleration);
     }
 
     /**
@@ -128,5 +141,56 @@ public class Player_Script : MonoBehaviour
             boxCollider.enabled = false;
         }
     }
-    
+
+    /**
+     * Handles the input from going over a speed platform
+     * 
+     * sw is a binary switch, 1: player has entered a speed platform
+     *                        0: player has exited a speed platform
+     *                        
+     * accMlt is the multiplier aplied to the players acceleration (Optional argument)
+     */
+    public void speedPaltform(int sw, float accMlt = 1)
+    {
+        // Check acceleration multiplier is not silly
+        if (accMlt <= 0 || accMlt > 3)
+        {
+            // Do nothing
+        }
+        else if (sw == 1) // If player on a speed platform
+        {
+            overSpeedPlatform = true;
+            accelerationMultiplier = accMlt;
+        }
+        else // If player is exiting a speed platform reset everything
+        {
+            overSpeedPlatform = false;
+            accelerationMultiplier = 1f;
+        }
+
+    }
+
+    /**
+     * Get the players current score
+     */
+    public int getScore() { return score; }
+
+    /**
+     * Updates the players score
+     * Can incress or decress score 
+     * Not negitive scores
+     * 
+     * change is the amount to change the score by
+     */
+     public void changeScore(int change)
+    {
+        int newScore = score + change;
+
+        if (newScore < 0) // Score can not be less than zero
+            score = 0;
+        else
+            score = newScore;
+    }
+
+
 }

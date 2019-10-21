@@ -200,7 +200,7 @@ public class Player_Script : MonoBehaviour
         else
             score = newScore;
 
-        Debug.Log("Player score: " + score);
+        //Debug.Log("Player score: " + score);
     }
 
 

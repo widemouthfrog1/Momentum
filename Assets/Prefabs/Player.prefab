@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3247596094436521789}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -148,7 +148,6 @@ MonoBehaviour:
   circleSprite: {fileID: 6813553822765877458, guid: 7a4ef3601e8c46e46af335e2addbf7cf,
     type: 3}
   pistons: {fileID: 0}
-  frictionCoefficient: 1
 --- !u!58 &3247596094436521789
 CircleCollider2D:
   m_ObjectHideFlags: 0

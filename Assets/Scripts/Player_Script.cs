@@ -24,7 +24,7 @@ public class Player_Script : MonoBehaviour
 
     // For the speed platforms
     private bool overSpeedPlatform = false;
-    private float accelerationMultiplier = 1f;
+    private float velocityMultiplier = 1f;
 
     // For collectables
     private int score = 0;
@@ -85,12 +85,24 @@ public class Player_Script : MonoBehaviour
             
         }
 
-        if(overSpeedPlatform)
-            angularAcceleration = -Input.GetAxis("Horizontal") * accelerationMultiplier;
+        if (overSpeedPlatform)
+        {
+            angularAcceleration = -Input.GetAxis("Horizontal");
+
+            Vector3 v = rigidBody.velocity;
+            v.x *= velocityMultiplier;
+            float max = 18f;
+            if(v.x < 15)
+                rigidBody.velocity = v;
+            else
+            {
+                v.x = max;
+                rigidBody.velocity = v;
+            }
+        }
         else
             angularAcceleration = -Input.GetAxis("Horizontal");
 
-        Debug.Log(angularAcceleration);
     }
 
     /**
@@ -148,20 +160,20 @@ public class Player_Script : MonoBehaviour
      * sw is a binary switch, 1: player has entered a speed platform
      *                        0: player has exited a speed platform
      *                        
-     * accMlt is the multiplier aplied to the players acceleration (Optional argument)
+     * accMlt is the multiplier aplied to the players velocity (Optional argument)
      */
-    public void speedPaltform(int sw, float accMlt = 1)
+    public void speedPaltform(int sw, float velMlt = 1)
     {
 
         if (sw == 1) // If player on a speed platform
         {
             overSpeedPlatform = true;
-            accelerationMultiplier = accMlt;
+            velocityMultiplier = velMlt;
         }
         else // If player is exiting a speed platform reset everything
         {
             overSpeedPlatform = false;
-            accelerationMultiplier = 1f;
+            velocityMultiplier = 1f;
         }
 
     }

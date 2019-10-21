@@ -152,12 +152,8 @@ public class Player_Script : MonoBehaviour
      */
     public void speedPaltform(int sw, float accMlt = 1)
     {
-        // Check acceleration multiplier is not silly
-        if (accMlt <= 0 || accMlt > 3)
-        {
-            // Do nothing
-        }
-        else if (sw == 1) // If player on a speed platform
+
+        if (sw == 1) // If player on a speed platform
         {
             overSpeedPlatform = true;
             accelerationMultiplier = accMlt;

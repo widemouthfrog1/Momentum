@@ -8,7 +8,7 @@ public class SpeedPlatform : MonoBehaviour
     private Player_Script player;
 
     [SerializeField]
-    private float accelerationMultiplier = 1.5f;
+    private float velocityMultiplier = 1.1f;
 
     [SerializeField]
     private AudioSource Source;
@@ -26,12 +26,6 @@ public class SpeedPlatform : MonoBehaviour
         Source.clip = clip;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     // Check if the player inside the collider
     void OnTriggerEnter2D(Collider2D other)
     {
@@ -40,11 +34,11 @@ public class SpeedPlatform : MonoBehaviour
 
         if (player != null)
         {
-            player.speedPaltform(1, accelerationMultiplier);
+            player.speedPaltform(1, velocityMultiplier);
             Source.Play();
         }
 
-        Debug.Log("Player entered speed zone");
+        //Debug.Log("Player entered speed zone");
     }
 
     // Check if the player has left the collider
@@ -58,6 +52,6 @@ public class SpeedPlatform : MonoBehaviour
             player.speedPaltform(0);
         }
 
-        Debug.Log("Player left speed zone");
+        //Debug.Log("Player left speed zone");
     }
 }

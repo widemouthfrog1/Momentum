@@ -160,7 +160,7 @@ public class Player_Script : MonoBehaviour
      * sw is a binary switch, 1: player has entered a speed platform
      *                        0: player has exited a speed platform
      *                        
-     * accMlt is the multiplier aplied to the players velocity (Optional argument)
+     * velMlt is the multiplier aplied to the players velocity (Optional argument)
      */
     public void speedPaltform(int sw, float velMlt = 1)
     {

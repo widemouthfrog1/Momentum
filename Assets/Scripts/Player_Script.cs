@@ -21,6 +21,13 @@ public class Player_Script : MonoBehaviour
 
     //The input of the player, what direction they want to roll in
     private float angularAcceleration;
+
+    // For the speed platforms
+    private bool overSpeedPlatform = false;
+    private float velocityMultiplier = 1f;
+
+    // For collectables
+    private int score = 0;
     
     void Start()
     {
@@ -77,7 +84,26 @@ public class Player_Script : MonoBehaviour
             }
             
         }
-        angularAcceleration = -Input.GetAxis("Horizontal");
+
+        if (overSpeedPlatform)
+        {
+            angularAcceleration = -Input.GetAxis("Horizontal");
+
+            // Change player velocity base on input from platform
+            Vector3 v = rigidBody.velocity;
+            v.x *= velocityMultiplier;
+            float max = 18f; // Set max velocity so the player doesn't go to fast
+            if(v.x < max)
+                rigidBody.velocity = v;
+            else
+            {
+                v.x = max;
+                rigidBody.velocity = v;
+            }
+        }
+        else
+            angularAcceleration = -Input.GetAxis("Horizontal");
+
     }
 
     /**
@@ -128,5 +154,54 @@ public class Player_Script : MonoBehaviour
             boxCollider.enabled = false;
         }
     }
-    
+
+    /**
+     * Handles the input from going over a speed platform
+     * 
+     * sw is a binary switch, 1: player has entered a speed platform
+     *                        0: player has exited a speed platform
+     *                        
+     * velMlt is the multiplier aplied to the players velocity (Optional argument)
+     */
+    public void speedPaltform(int sw, float velMlt = 1)
+    {
+
+        if (sw == 1) // If player on a speed platform
+        {
+            overSpeedPlatform = true;
+            velocityMultiplier = velMlt;
+        }
+        else // If player is exiting a speed platform reset everything
+        {
+            overSpeedPlatform = false;
+            velocityMultiplier = 1f;
+        }
+
+    }
+
+    /**
+     * Get the players current score
+     */
+    public int getScore() { return score; }
+
+    /**
+     * Updates the players score
+     * Can incress or decress score 
+     * Not negitive scores
+     * 
+     * change is the amount to change the score by
+     */
+     public void changeScore(int change)
+    {
+        int newScore = score + change;
+
+        if (newScore < 0) // Score can not be less than zero
+            score = 0;
+        else
+            score = newScore;
+
+        //Debug.Log("Player score: " + score);
+    }
+
+
 }

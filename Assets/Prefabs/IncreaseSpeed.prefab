@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4307349864074621604}
   - component: {fileID: 4307349864074621605}
   m_Layer: 0
-  m_Name: IncressSpeed
+  m_Name: IncreaseSpeed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a00ce798239d354cb2eebe3db72d6b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  accelerationMultiplier: 1.1
+  velocityMultiplier: 1.1
   Source: {fileID: 4307349864074621605}
   clip: {fileID: 8300000, guid: 7279d2552c718b0498bb53d4a1823bf0, type: 3}
   Volume: 0.3

@@ -89,10 +89,11 @@ public class Player_Script : MonoBehaviour
         {
             angularAcceleration = -Input.GetAxis("Horizontal");
 
+            // Change player velocity base on input from platform
             Vector3 v = rigidBody.velocity;
             v.x *= velocityMultiplier;
-            float max = 18f;
-            if(v.x < 15)
+            float max = 18f; // Set max velocity so the player doesn't go to fast
+            if(v.x < max)
                 rigidBody.velocity = v;
             else
             {

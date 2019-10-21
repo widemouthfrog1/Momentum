@@ -10,10 +10,20 @@ public class SpeedPlatform : MonoBehaviour
     [SerializeField]
     private float accelerationMultiplier = 1.5f;
 
+    [SerializeField]
+    private AudioSource Source;
+
+    [SerializeField]
+    private AudioClip clip;
+
+    [SerializeField]
+    private float Volume = 0.3f;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Source.volume = Volume;
+        Source.clip = clip;
     }
 
     // Update is called once per frame
@@ -28,7 +38,11 @@ public class SpeedPlatform : MonoBehaviour
 
         player = other.gameObject.GetComponent<Player_Script>();
 
-        player.speedPaltform(1, accelerationMultiplier);
+        if (player != null)
+        {
+            player.speedPaltform(1, accelerationMultiplier);
+            Source.Play();
+        }
 
         Debug.Log("Player entered speed zone");
     }
@@ -39,7 +53,10 @@ public class SpeedPlatform : MonoBehaviour
 
         player = other.gameObject.GetComponent<Player_Script>();
 
-        player.speedPaltform(0);
+        if (player != null)
+        {
+            player.speedPaltform(0);
+        }
 
         Debug.Log("Player left speed zone");
     }

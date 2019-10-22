@@ -48,16 +48,20 @@ public class Player_Script : MonoBehaviour
         handleControls();
         updateSprite();
         updateColliders();
+        /*
         if (wasCircleLastTick)
         {
-            Debug.Log(rigidBody.rotation);
-            foreach (Transform child in pistons.transform)
-            {
-                Debug.Log(child.GetComponent<Rigidbody2D>().rotation);
-            }
+            
+            
             wasCircleLastTick = false;
         }
-
+        */
+        int i = 1;
+        foreach (Transform child in pistons.transform)
+        {
+            Debug.Log("Piston" + i + ": " + child.GetComponent<Rigidbody2D>().rotation);
+            i++;
+        }
         //Debug.Log(rigidBody.rotation);
 
         rigidBody.AddTorque(angularAcceleration);
@@ -91,7 +95,22 @@ public class Player_Script : MonoBehaviour
             {
                 foreach (Transform child in pistons.transform)
                 {
-                    child.gameObject.GetComponent<Rigidbody2D>().rotation = 0;
+                    if(child.gameObject.name.Equals("Left"))
+                    {
+                        child.gameObject.GetComponent<Rigidbody2D>().rotation = -90;
+                    }
+                    if (child.gameObject.name.Equals("Right"))
+                    {
+                        child.gameObject.GetComponent<Rigidbody2D>().rotation = 90;
+                    }
+                    if (child.gameObject.name.Equals("Up"))
+                    {
+                        child.gameObject.GetComponent<Rigidbody2D>().rotation = 180;
+                    }
+                    if (child.gameObject.name.Equals("Down"))
+                    {
+                        child.gameObject.GetComponent<Rigidbody2D>().rotation = 0;
+                    }
                     child.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
                 }
                 rigidBody.angularVelocity = 0;
@@ -103,16 +122,14 @@ public class Player_Script : MonoBehaviour
             
         }
 
-
+        angularAcceleration = -Input.GetAxis("Horizontal");
         if (overSpeedPlatform)
         {
-            angularAcceleration = -Input.GetAxis("Horizontal");
-
             // Change player velocity base on input from platform
             Vector3 v = rigidBody.velocity;
             v.x *= velocityMultiplier;
             float max = 18f; // Set max velocity so the player doesn't go to fast
-            if(v.x < max)
+            if (v.x < max)
                 rigidBody.velocity = v;
             else
             {
@@ -120,9 +137,6 @@ public class Player_Script : MonoBehaviour
                 rigidBody.velocity = v;
             }
         }
-        else
-            angularAcceleration = -Input.GetAxis("Horizontal");
-
     }
 
     /**

@@ -188,6 +188,6 @@ public class Piston_Script : MonoBehaviour
      */
     public bool isExtended()
     {
-        return state == State.EXTENDING || state == State.EXTENDED;
+        return state != State.RETRACTED;
     }
 }

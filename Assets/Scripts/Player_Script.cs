@@ -59,7 +59,6 @@ public class Player_Script : MonoBehaviour
             
             wasCircleLastTick = false;
         }
-        */
         int i = 1;
         foreach (Transform child in pistons.transform)
         {

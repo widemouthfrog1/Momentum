@@ -55,7 +55,8 @@ public class Piston_Script : MonoBehaviour
         SliderJoint2D slider = GetComponent<SliderJoint2D>();
         Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        
+
+
         CircleCollider2D playerCircleCollider = player.GetComponent<CircleCollider2D>();
         if (!playerCircleCollider.enabled)
         {
@@ -72,8 +73,10 @@ public class Piston_Script : MonoBehaviour
                  Change pistons' rigidbodies to be spinning at same speed as player
                 */
 
-                rigidbody.angularVelocity = player.GetComponent<Rigidbody2D>().angularVelocity;
+                rigidbody.angularVelocity = 0;
+                rigidbody.velocity = player.GetComponent<Rigidbody2D>().velocity;
             }
+            
             //Finite State Machine:
             if (state == State.RETRACTED)
             {

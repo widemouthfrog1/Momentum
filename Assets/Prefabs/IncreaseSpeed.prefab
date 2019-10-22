@@ -123,7 +123,7 @@ MonoBehaviour:
   velocityMultiplier: 1.1
   Source: {fileID: 4307349864074621605}
   clip: {fileID: 8300000, guid: 7279d2552c718b0498bb53d4a1823bf0, type: 3}
-  Volume: 0.3
+  Volume: 0.5
 --- !u!82 &4307349864074621605
 AudioSource:
   m_ObjectHideFlags: 0

@@ -14,7 +14,7 @@ public class Player_Script : MonoBehaviour
     //The pistons this player is attached to
     [SerializeField]
     private GameObject pistons = null;
-    
+
 
     //Circle or square
     private PLAYER_MODE mode;
@@ -84,6 +84,7 @@ public class Player_Script : MonoBehaviour
             }
             
         }
+
 
         if (overSpeedPlatform)
         {

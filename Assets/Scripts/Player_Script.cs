@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Tilemaps;
 
 enum PLAYER_MODE {SQUARE, CIRCLE}
 
 public class Player_Script : MonoBehaviour
 {
+
     // The Sprites for the different shapes
     [SerializeField]
     private Sprite squareSprite = null, circleSprite = null;
@@ -22,9 +24,13 @@ public class Player_Script : MonoBehaviour
     //The input of the player, what direction they want to roll in
     private float angularAcceleration;
 
+    public bool wasCircleLastTick = false;
+
     // For the speed platforms
     private bool overSpeedPlatform = false;
     private float velocityMultiplier = 1f;
+    [SerializeField]
+    private float maxVelocity = 18f; // Set max velocity so the player doesn't go to fast
 
     // For collectables
     private int score = 0;
@@ -40,13 +46,26 @@ public class Player_Script : MonoBehaviour
     //FixedUpdate is called once every physics calculation
     void FixedUpdate()
     {
+        Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
+        
         handleControls();
         updateSprite();
         updateColliders();
+        if(overSpeedPlatform)
+            changeVelocity();
+        if (wasCircleLastTick)
+        {
+            Debug.Log(rigidBody.rotation);
+            foreach (Transform child in pistons.transform)
+            {
+                Debug.Log(child.GetComponent<Rigidbody2D>().rotation);
+            }
+            wasCircleLastTick = false;
+        }
 
-        Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
+        //Debug.Log(rigidBody.rotation);
+
         rigidBody.AddTorque(angularAcceleration);
-        
     }
 
     /**
@@ -78,33 +97,18 @@ public class Player_Script : MonoBehaviour
                 foreach (Transform child in pistons.transform)
                 {
                     child.gameObject.GetComponent<Rigidbody2D>().rotation = 0;
+                    child.gameObject.GetComponent<Rigidbody2D>().angularVelocity = 0;
                 }
+                rigidBody.angularVelocity = 0;
                 rigidBody.rotation = 0;
+                wasCircleLastTick = true;
+                
                 mode = PLAYER_MODE.SQUARE;
             }
             
         }
 
-
-        if (overSpeedPlatform)
-        {
-            angularAcceleration = -Input.GetAxis("Horizontal");
-
-            // Change player velocity base on input from platform
-            Vector3 v = rigidBody.velocity;
-            v.x *= velocityMultiplier;
-            float max = 18f; // Set max velocity so the player doesn't go to fast
-            if(v.x < max)
-                rigidBody.velocity = v;
-            else
-            {
-                v.x = max;
-                rigidBody.velocity = v;
-            }
-        }
-        else
-            angularAcceleration = -Input.GetAxis("Horizontal");
-
+        angularAcceleration = -Input.GetAxis("Horizontal");     
     }
 
     /**
@@ -204,5 +208,22 @@ public class Player_Script : MonoBehaviour
         //Debug.Log("Player score: " + score);
     }
 
+    /**
+     * Changes the velocity on the player
+     */
+     private void changeVelocity()
+    {
+        Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
 
+        // Change player velocity base on input from platform
+        Vector3 v = rigidBody.velocity;
+        v.x *= velocityMultiplier;     
+        if (v.x < maxVelocity)
+            rigidBody.velocity = v;
+        else
+        {
+            v.x = maxVelocity;
+            rigidBody.velocity = v;
+        }
+    }
 }

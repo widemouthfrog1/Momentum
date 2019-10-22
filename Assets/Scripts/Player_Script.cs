@@ -8,6 +8,7 @@ enum PLAYER_MODE {SQUARE, CIRCLE}
 
 public class Player_Script : MonoBehaviour
 {
+
     // The Sprites for the different shapes
     [SerializeField]
     private Sprite squareSprite = null, circleSprite = null;
@@ -28,6 +29,8 @@ public class Player_Script : MonoBehaviour
     // For the speed platforms
     private bool overSpeedPlatform = false;
     private float velocityMultiplier = 1f;
+    [SerializeField]
+    private float maxVelocity = 18f; // Set max velocity so the player doesn't go to fast
 
     // For collectables
     private int score = 0;
@@ -48,6 +51,8 @@ public class Player_Script : MonoBehaviour
         handleControls();
         updateSprite();
         updateColliders();
+        if(overSpeedPlatform)
+            changeVelocity();
         if (wasCircleLastTick)
         {
             Debug.Log(rigidBody.rotation);
@@ -103,26 +108,7 @@ public class Player_Script : MonoBehaviour
             
         }
 
-
-        if (overSpeedPlatform)
-        {
-            angularAcceleration = -Input.GetAxis("Horizontal");
-
-            // Change player velocity base on input from platform
-            Vector3 v = rigidBody.velocity;
-            v.x *= velocityMultiplier;
-            float max = 18f; // Set max velocity so the player doesn't go to fast
-            if(v.x < max)
-                rigidBody.velocity = v;
-            else
-            {
-                v.x = max;
-                rigidBody.velocity = v;
-            }
-        }
-        else
-            angularAcceleration = -Input.GetAxis("Horizontal");
-
+        angularAcceleration = -Input.GetAxis("Horizontal");     
     }
 
     /**
@@ -222,5 +208,22 @@ public class Player_Script : MonoBehaviour
         //Debug.Log("Player score: " + score);
     }
 
+    /**
+     * Changes the velocity on the player
+     */
+     private void changeVelocity()
+    {
+        Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
 
+        // Change player velocity base on input from platform
+        Vector3 v = rigidBody.velocity;
+        v.x *= velocityMultiplier;     
+        if (v.x < maxVelocity)
+            rigidBody.velocity = v;
+        else
+        {
+            v.x = maxVelocity;
+            rigidBody.velocity = v;
+        }
+    }
 }

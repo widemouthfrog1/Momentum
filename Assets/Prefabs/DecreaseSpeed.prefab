@@ -219,4 +219,4 @@ MonoBehaviour:
   velocityMultiplier: 0.9
   Source: {fileID: 150161903835974849}
   clip: {fileID: 8300000, guid: 8a1ba77c8299cbb459c0e1510115d8ba, type: 3}
-  Volume: 0.3
+  Volume: 0.5

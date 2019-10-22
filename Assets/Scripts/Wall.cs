@@ -22,9 +22,21 @@ public class Wall : MonoBehaviour
     private float breakForce;
 
     [SerializeField]
+    private float breakTorque;
+
+    [SerializeField]
     private float edgeBreakForce;
 
+    [SerializeField]
+    private float dampingRatio = 5;
+
+    [SerializeField]
+    private float minForce;
+
     private GameObject[][] walls;
+
+
+    
 
 
     void Awake()
@@ -44,9 +56,10 @@ public class Wall : MonoBehaviour
                 o.AddComponent<SpriteRenderer>();
                 SpriteRenderer r = o.GetComponent<SpriteRenderer>();
                 r.sprite = wallSprite;
-                o.transform.localScale = new Vector3(width, height, 1.0f);
+                r.sortingOrder = -1;
                 o.transform.position = transform.position;
                 o.transform.Translate(new Vector3(x * width, y * height, 0));
+                
 
                 o.AddComponent<BoxCollider2D>();
                 o.AddComponent<Rigidbody2D>();
@@ -60,13 +73,16 @@ public class Wall : MonoBehaviour
                     Component[] components = o.GetComponents(typeof(FixedJoint2D));
                     FixedJoint2D fixedJoint = (FixedJoint2D)components[0];
                     fixedJoint.connectedBody = walls[x - 1][y].GetComponent<Rigidbody2D>();
+                    fixedJoint.dampingRatio = dampingRatio;
                     if(y > rows / 2)
                     {
-                        fixedJoint.breakForce = breakForce * (y - rows/2 + 1);
+                        fixedJoint.breakForce = breakForce * (y - rows/2 + minForce);
+                        fixedJoint.breakTorque = breakTorque * (y - rows / 2 + minForce);
                     }
                     else
                     {
-                        fixedJoint.breakForce = breakForce * (rows/2 - y + 1);
+                        fixedJoint.breakForce = breakForce * (rows/2 - y + minForce);
+                        fixedJoint.breakTorque = breakTorque * (rows / 2 - y + minForce);
                     }
                 }
 
@@ -76,6 +92,7 @@ public class Wall : MonoBehaviour
 
                     Component[] components = o.GetComponents(typeof(FixedJoint2D));
                     FixedJoint2D fixedJoint;
+                    
                     if (x > 0)
                     {
                         fixedJoint = (FixedJoint2D)components[1];
@@ -84,14 +101,17 @@ public class Wall : MonoBehaviour
                     {
                         fixedJoint = (FixedJoint2D)components[0];
                     }
+                    fixedJoint.dampingRatio = dampingRatio;
                     fixedJoint.connectedBody = walls[x][y - 1].GetComponent<Rigidbody2D>();
                     if (y > rows / 2)
                     {
-                        fixedJoint.breakForce = breakForce * (y - rows / 2 + 1);
+                        fixedJoint.breakForce = breakForce * (y - rows / 2 + minForce);
+                        fixedJoint.breakTorque = breakTorque * (y - rows / 2 + minForce);
                     }
                     else
                     {
-                        fixedJoint.breakForce = breakForce * (rows / 2 - y + 1);
+                        fixedJoint.breakForce = breakForce * (rows / 2 - y + minForce);
+                        fixedJoint.breakTorque = breakTorque * (y - rows / 2 + minForce);
                     }
 
                 }

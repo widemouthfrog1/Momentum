@@ -20,14 +20,14 @@ public class Checkpoint_Script : MonoBehaviour
     void Update()
     {
         //if this checkpoint is touching the player, attempt to activate this checkpoint.
-        if (touchingPlayer())
+        if (TouchingPlayer())
         {
-            activate();
+            Activate();
         }
     }
 
     //Sets all other checkpoints in inactive and sets this checkpoint to active. Does nothing if this checkpoint has ever been activated since the start of the level.
-    private void activate()
+    private void Activate()
     {
         //This can be removed for non-linear checkpoints.
         if (activatedBefore) {
@@ -43,7 +43,7 @@ public class Checkpoint_Script : MonoBehaviour
     }
 
     //Returns true if the player's active collider is touching this checkpoint.
-    private bool touchingPlayer()
+    private bool TouchingPlayer()
     {
         BoxCollider2D collider = GetComponent<BoxCollider2D>();
         BoxCollider2D playerBoxCollider = player.GetComponent<BoxCollider2D>();
@@ -59,7 +59,7 @@ public class Checkpoint_Script : MonoBehaviour
     }
 
     //Returns true if this checkpoint is currently active
-    public bool isActive() {
+    public bool IsActive() {
         return activated;
     }
 }

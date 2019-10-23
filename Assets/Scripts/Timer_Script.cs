@@ -17,7 +17,7 @@ public class Timer_Script : MonoBehaviour
     void Start()
     {
         Text textBox = GetComponent<Text>();
-        textBox.text = getTime();
+        textBox.text = GetTime();
     }
 
     // Update is called once per frame
@@ -25,11 +25,11 @@ public class Timer_Script : MonoBehaviour
     {
         Checkpoint_Script starterScript = starter.GetComponent<Checkpoint_Script>();
         Checkpoint_Script stopperScript = stopper.GetComponent<Checkpoint_Script>();
-        if (starterScript.isActive())
+        if (starterScript.IsActive())
         {
             timerActive = true;
         }
-        if (stopperScript.isActive())
+        if (stopperScript.IsActive())
         {
             timerActive = false;
         }
@@ -44,12 +44,12 @@ public class Timer_Script : MonoBehaviour
             }
             seconds = (int)time;
             milliseconds = (int)((time - seconds) * 1000);
-            textBox.text = getTime();
+            textBox.text = GetTime();
         }
     }
 
     //Converts the time into a string
-    private string getTime()
+    private string GetTime()
     {
         return minutes + ":" + seconds + ":" + milliseconds;
     } 

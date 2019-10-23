@@ -29,26 +29,26 @@ public class Kill_Script : MonoBehaviour
         {
             if (collider.IsTouching(playerCircleCollider))
             {
-                kill();
+                Kill();
             }
         }
         else
         {
             if (collider.IsTouching(playerBoxCollider))
             {
-                kill();
+                Kill();
             }
         }
     }
 
     //teleports the player to the last activated checkpoint
-    private void kill()
+    private void Kill()
     {
         Rigidbody2D playerRigidbody = player.GetComponent<Rigidbody2D>();
         GameObject checkpoint = null;
         foreach (Transform child in checkpoints.transform)
         {
-            if (child.gameObject.GetComponent<Checkpoint_Script>().isActive())
+            if (child.gameObject.GetComponent<Checkpoint_Script>().IsActive())
             {
                 checkpoint = child.gameObject;
             }

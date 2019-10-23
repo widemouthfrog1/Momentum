@@ -27,7 +27,7 @@ public class ScoreScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreVaule = playerScr.getScore();
+        scoreVaule = playerScr.GetScore();
         score.text = "Score: " + scoreVaule;
     }
 }

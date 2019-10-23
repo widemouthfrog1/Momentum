@@ -22,7 +22,7 @@ public class CoinScript : MonoBehaviour
         if (player != null)
         {
 
-            player.changeScore(scoreAddtion);
+            player.ChangeScore(scoreAddtion);
             AudioSource.PlayClipAtPoint(clip, transform.position, 1f);
             //Debug.Break();
             Destroy(gameObject);

@@ -114,7 +114,7 @@ public class Piston_Script : MonoBehaviour
                 }
                 else
                 {
-                    extendPiston();
+                    ExtendPiston();
                 }
             }
             else if (state == State.RETRACTING)
@@ -137,7 +137,7 @@ public class Piston_Script : MonoBehaviour
                 }
                 else
                 {
-                    retractPiston();
+                    RetractPiston();
                 }
             }
         }
@@ -163,7 +163,7 @@ public class Piston_Script : MonoBehaviour
         }
     }
 
-    private void extendPiston()
+    private void ExtendPiston()
     {
         SliderJoint2D slider = GetComponent<SliderJoint2D>();
         JointMotor2D motor = new JointMotor2D();
@@ -172,7 +172,7 @@ public class Piston_Script : MonoBehaviour
         slider.motor = motor;
     }
 
-    private void retractPiston()
+    private void RetractPiston()
     {
         retractionTime += Time.deltaTime;
         if(retractionTime > 0.01)
@@ -189,13 +189,13 @@ public class Piston_Script : MonoBehaviour
     /** 
      * returns true if this piston is fully or partially extended 
      */
-    public bool isExtended()
+    public bool IsExtended()
     {
         return state == State.EXTENDING || state == State.EXTENDED;
     }
 
     // Returns true if the piston is retracted
-    public bool isRetracted()
+    public bool IsRetracted()
     {
         return state == State.RETRACTED;
     }

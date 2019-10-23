@@ -48,11 +48,11 @@ public class Player_Script : MonoBehaviour
     {
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
         
-        handleControls();
-        updateSprite();
-        updateColliders();
+        HandleControls();
+        UpdateSprite();
+        UpdateColliders();
         if(overSpeedPlatform)
-            changeVelocity();
+            ChangeVelocity();
         if (wasCircleLastTick)
         {
             
@@ -67,7 +67,7 @@ public class Player_Script : MonoBehaviour
     /**
      * Changes the mode of the player and the angular acceleration based on player input
      */
-    private void handleControls()
+    private void HandleControls()
     {
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
 
@@ -78,7 +78,7 @@ public class Player_Script : MonoBehaviour
                 bool allPistonsRetracted = true;
                 foreach (Transform child in pistons.transform)
                 {
-                    if (child.gameObject.GetComponent<Piston_Script>().isExtended())
+                    if (child.gameObject.GetComponent<Piston_Script>().IsExtended())
                     {
                         allPistonsRetracted = false;
                     }
@@ -125,7 +125,7 @@ public class Player_Script : MonoBehaviour
     /**
      * Changes the sprite of the player based on the mode
      */
-    private void updateSprite()
+    private void UpdateSprite()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
 
@@ -148,7 +148,7 @@ public class Player_Script : MonoBehaviour
     /**
      * Changes the collider of the player based on the mode
      */
-    private void updateColliders()
+    private void UpdateColliders()
     {
         BoxCollider2D boxCollider = GetComponent<BoxCollider2D>();
         CircleCollider2D circleCollider = GetComponent<CircleCollider2D>();
@@ -179,7 +179,7 @@ public class Player_Script : MonoBehaviour
      *                        
      * velMlt is the multiplier aplied to the players velocity (Optional argument)
      */
-    public void speedPaltform(int sw, float velMlt = 1)
+    public void SpeedPaltform(int sw, float velMlt = 1)
     {
 
         if (sw == 1) // If player on a speed platform
@@ -198,7 +198,7 @@ public class Player_Script : MonoBehaviour
     /**
      * Get the players current score
      */
-    public int getScore() { return score; }
+    public int GetScore() { return score; }
 
     /**
      * Updates the players score
@@ -207,7 +207,7 @@ public class Player_Script : MonoBehaviour
      * 
      * change is the amount to change the score by
      */
-     public void changeScore(int change)
+     public void ChangeScore(int change)
     {
         int newScore = score + change;
 
@@ -222,7 +222,7 @@ public class Player_Script : MonoBehaviour
     /**
      * Changes the velocity on the player
      */
-     private void changeVelocity()
+     private void ChangeVelocity()
     {
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
 

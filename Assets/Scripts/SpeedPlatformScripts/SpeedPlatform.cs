@@ -34,7 +34,7 @@ public class SpeedPlatform : MonoBehaviour
 
         if (player != null)
         {
-            player.speedPaltform(1, velocityMultiplier);
+            player.SpeedPaltform(1, velocityMultiplier);
             Source.Play();
         }
 
@@ -49,7 +49,7 @@ public class SpeedPlatform : MonoBehaviour
 
         if (player != null)
         {
-            player.speedPaltform(0);
+            player.SpeedPaltform(0);
         }
 
         //Debug.Log("Player left speed zone");

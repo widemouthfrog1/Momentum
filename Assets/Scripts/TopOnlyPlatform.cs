@@ -32,7 +32,7 @@ public class TopOnlyPlatform : MonoBehaviour
 
         if (playerBox.enabled)
         {
-            if (playerRigid.position.y - boxBottom() > platformTop)     // checks if the bottom of the box is higher than the top of the platform, with some leeway
+            if (playerRigid.position.y - BoxBottom() > platformTop)     // checks if the bottom of the box is higher than the top of the platform, with some leeway
             {
                 // Do nothing if the platform has already been activated
                 if (platform.enabled)
@@ -42,7 +42,7 @@ public class TopOnlyPlatform : MonoBehaviour
                 foreach (Transform child in pistons.transform)
                 {
                     // All pistons must be retracted before the platform activates
-                    if (!child.gameObject.GetComponent<Piston_Script>().isRetracted())
+                    if (!child.gameObject.GetComponent<Piston_Script>().IsRetracted())
                     {
                         platform.enabled = false;
                         return;
@@ -69,7 +69,7 @@ public class TopOnlyPlatform : MonoBehaviour
     }
 
     // Will return where the bottom of the square is relative to its center of rotation
-    private float boxBottom()
+    private float BoxBottom()
     {
         float rotation = Mathf.Abs(player.gameObject.GetComponent<Rigidbody2D>().rotation);
         while (rotation >= 45)

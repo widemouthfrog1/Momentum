@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  extendSpeed: 100
+  extendSpeed: 200
   extendForce: 80
   retractSpeed: 2
   retractForce: 20

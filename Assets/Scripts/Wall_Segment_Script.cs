@@ -14,6 +14,7 @@ public class Wall_Segment_Script : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        Debug.DrawLine(new Vector3(wallXPos - buffer, wallYPos - buffer, 0), new Vector3(wallXPos + wallWidth + buffer, wallYPos + wallHeight + buffer, 0), Color.green, 100, false);
         if(transform.position.x < wallXPos - buffer || transform.position.x > wallXPos + wallWidth + buffer || transform.position.y < wallYPos - buffer || transform.position.y > wallYPos + wallHeight + buffer)
         {
             gameObject.layer = 10; //Layer 10 is Non-Interactable, meaning the player can't touch it

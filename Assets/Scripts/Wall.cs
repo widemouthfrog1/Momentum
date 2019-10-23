@@ -56,8 +56,8 @@ public class Wall : MonoBehaviour
                 Wall_Segment_Script script = o.GetComponent<Wall_Segment_Script>();
                 script.SetWallXPos(transform.position.x);
                 script.SetWallYPos(transform.position.y);
-                script.SetWallWidth(width*16);
-                script.SetWallHeight(height*16);
+                script.SetWallWidth(cols*width);
+                script.SetWallHeight(rows* height);
                 o.transform.parent = transform;
                 o.AddComponent<SpriteRenderer>();
                 SpriteRenderer r = o.GetComponent<SpriteRenderer>();

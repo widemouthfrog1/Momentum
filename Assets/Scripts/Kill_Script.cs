@@ -56,7 +56,6 @@ public class Kill_Script : MonoBehaviour
         playerRigidbody.angularVelocity = 0;
         playerRigidbody.velocity = Vector2.zero;
         player.transform.position = new Vector2(checkpoint.transform.position.x, checkpoint.transform.position.y);
-        Debug.Log(checkpoint.transform.position);
         foreach (Transform child in pistons.transform)
         {
             Rigidbody2D childRigidbody = child.gameObject.GetComponent<Rigidbody2D>();

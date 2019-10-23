@@ -191,7 +191,7 @@ public class Piston_Script : MonoBehaviour
      */
     public bool isExtended()
     {
-        return state != State.RETRACTED;
+        return state == State.EXTENDING || state == State.EXTENDED;
     }
 
     // Returns true if the piston is retracted

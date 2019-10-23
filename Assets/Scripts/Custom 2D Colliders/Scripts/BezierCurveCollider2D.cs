@@ -106,7 +106,10 @@ public class BezierCurveCollider2D : MonoBehaviour {
             }
         }
 
-
+        for(int i = 0; i < pts.Count; i++)
+        {
+            pts[i] = new Vector2(pts[i].x - transform.position.x, pts[i].y - transform.position.y);
+        }
         edge.points = pts.ToArray();
 
     }

@@ -59,12 +59,6 @@ public class Player_Script : MonoBehaviour
             
             wasCircleLastTick = false;
         }
-        int i = 1;
-        foreach (Transform child in pistons.transform)
-        {
-            Debug.Log("Piston" + i + ": " + child.GetComponent<Rigidbody2D>().rotation);
-            i++;
-        }
         //Debug.Log(rigidBody.rotation);
 
         rigidBody.AddTorque(angularAcceleration);

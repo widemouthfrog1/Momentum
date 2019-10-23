@@ -16,9 +16,6 @@ public class End_Level : MonoBehaviour
     [SerializeField]
     private GameObject platform = null;
 
-    [SerializeField]
-    private string nextLevel = null;
-
     void Start()
     {
         endMenuUI.SetActive(false);
@@ -53,12 +50,9 @@ public class End_Level : MonoBehaviour
     // Used when clicking on the Next Level Button
     public void LoadNextLevel()
     {
-        // Do nothing if there is no next level
-        if (nextLevel == null)
-        {
-            return;
-        }
-
+        Scene scene = SceneManager.GetActiveScene();
+        int sceneNumber = int.Parse(scene.name.Substring(6)) + 1;
+        string nextLevel = "Level_" + sceneNumber;
         Time.timeScale = 1f;
         SceneManager.LoadScene(nextLevel);
     }

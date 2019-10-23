@@ -192,14 +192,11 @@ public class Piston_Script : MonoBehaviour
     public bool isExtended()
     {
         return state == State.EXTENDING || state == State.EXTENDED;
-<<<<<<< HEAD
     }
 
     // Returns true if the piston is retracted
     public bool isRetracted()
     {
         return state == State.RETRACTED;
-=======
->>>>>>> parent of 4de617c... #37 Mostly finished. I just need to make sure the screen only triggers when the player touches the top of the platform
     }
 }

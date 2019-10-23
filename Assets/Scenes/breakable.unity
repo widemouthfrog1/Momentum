@@ -1437,10 +1437,11 @@ MonoBehaviour:
   height: 0.16
   rows: 20
   cols: 6
-  breakForce: 10
-  breakTorque: 10
-  edgeBreakForce: 50
+  breakForce: 1
+  breakTorque: 1
+  edgeBreakForce: 100
   dampingRatio: 100
+  minForce: 10
 --- !u!4 &1775157485
 Transform:
   m_ObjectHideFlags: 0

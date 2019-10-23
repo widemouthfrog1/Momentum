@@ -52,6 +52,12 @@ public class Wall : MonoBehaviour
             for (int y = 0; y < rows; y++)
             {
                 GameObject o = new GameObject("Wall" + x + y);
+                o.AddComponent<Wall_Segment_Script>();
+                Wall_Segment_Script script = o.GetComponent<Wall_Segment_Script>();
+                script.SetWallXPos(transform.position.x);
+                script.SetWallYPos(transform.position.y);
+                script.SetWallWidth(width*16);
+                script.SetWallHeight(height*16);
                 o.transform.parent = transform;
                 o.AddComponent<SpriteRenderer>();
                 SpriteRenderer r = o.GetComponent<SpriteRenderer>();

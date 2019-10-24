@@ -19,6 +19,7 @@ public class Player_Script : MonoBehaviour
 
 
     //Circle or square
+    [SerializeField]
     private PLAYER_MODE mode;
 
     //The input of the player, what direction they want to roll in
@@ -30,10 +31,12 @@ public class Player_Script : MonoBehaviour
     private bool overSpeedPlatform = false;
     private float velocityMultiplier = 1f;
     [SerializeField]
-    private float maxVelocity = 18f; // Set max velocity so the player doesn't go to fast
+    private float maxVelocity = 18f; // Set max velocity so the player doesn't go too fast
 
     // For collectables
     private int score = 0;
+
+    private int frames = 0;
     
     void Start()
     {
@@ -47,7 +50,7 @@ public class Player_Script : MonoBehaviour
     void FixedUpdate()
     {
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
-        
+        frames++;
         HandleControls();
         UpdateSprite();
         UpdateColliders();
@@ -60,6 +63,7 @@ public class Player_Script : MonoBehaviour
             wasCircleLastTick = false;
         }
         //Debug.Log(rigidBody.rotation);
+        
 
         rigidBody.AddTorque(angularAcceleration);
     }
@@ -73,6 +77,12 @@ public class Player_Script : MonoBehaviour
 
         if (Input.GetButtonDown("Transform"))
         {
+            if (frames == 1)
+            {
+                return;
+            }
+            frames = 0;
+           
             if(mode == PLAYER_MODE.SQUARE)
             {
                 bool allPistonsRetracted = true;

@@ -16,7 +16,7 @@ public class End_Level : MonoBehaviour
     [SerializeField]
     private GameObject platform = null;
 
-    private int max_level = 6;
+    private int max_level = 7;
 
     void Start()
     {

@@ -17,8 +17,8 @@ TagManager:
   - Player_Layer
   - Piston_Layer
   - Non-Interactable
-  - 
-  - 
+  - Breakable_Holder
+  - Breakable_Wall
   - 
   - 
   - 

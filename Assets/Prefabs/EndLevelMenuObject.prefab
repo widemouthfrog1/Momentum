@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7e7dda0241ef294fb975f46ac15195a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endMenuUI: {fileID: 0}
+  endMenuUI: {fileID: 7456972662848728514}
   player: {fileID: 0}
   platform: {fileID: 0}
 --- !u!1 &7456972662542206629

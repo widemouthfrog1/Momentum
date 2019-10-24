@@ -304,6 +304,8 @@ MonoBehaviour:
   circleSprite: {fileID: 6813553822765877458, guid: 7a4ef3601e8c46e46af335e2addbf7cf,
     type: 3}
   pistons: {fileID: 498569495}
+  wasCircleLastTick: 0
+  maxVelocity: 18
 --- !u!61 &172611657
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -528,7 +530,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 432651674}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5658e55b9e7c437428fe3ff696232140, type: 3}
   m_Name: 
@@ -595,7 +597,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 826824793}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5658e55b9e7c437428fe3ff696232140, type: 3}
   m_Name: 
@@ -804,7 +806,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827494929}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5658e55b9e7c437428fe3ff696232140, type: 3}
   m_Name: 
@@ -1084,10 +1086,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46d45be50056a0744b858d89077906ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  chopSound1: {fileID: 0}
-  chopSound2: {fileID: 0}
-  dmgSprite: {fileID: 0}
-  hp: 1
+  wallSprite: {fileID: 0}
+  width: 0
+  height: 0
+  rows: 0
+  cols: 0
+  breakForce: 0
+  breakTorque: 0
+  edgeBreakForce: 0
+  dampingRatio: 5
+  minForce: 0
+  buffer: 0.3
 --- !u!114 &1252114028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1564,7 +1573,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1886443560}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5658e55b9e7c437428fe3ff696232140, type: 3}
   m_Name: 

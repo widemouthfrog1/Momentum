@@ -16,6 +16,8 @@ public class End_Level : MonoBehaviour
     [SerializeField]
     private GameObject platform = null;
 
+    private int max_level = 6;
+
     void Start()
     {
         endMenuUI.SetActive(false);
@@ -52,7 +54,15 @@ public class End_Level : MonoBehaviour
     {
         Scene scene = SceneManager.GetActiveScene();
         int sceneNumber = int.Parse(scene.name.Substring(6)) + 1;
-        string nextLevel = "Level_" + sceneNumber;
+        string nextLevel;
+        if (max_level < sceneNumber)
+        {
+            nextLevel = "Level_Select";
+        }
+        else
+        {
+            nextLevel = "Level_" + sceneNumber;
+        }
         Time.timeScale = 1f;
         SceneManager.LoadScene(nextLevel);
     }

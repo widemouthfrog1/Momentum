@@ -33,6 +33,10 @@ public class Wall : MonoBehaviour
     [SerializeField]
     private float minForce;
 
+    [SerializeField]
+    private float buffer = 0.3f;
+
+
     private GameObject[][] walls;
 
 
@@ -54,10 +58,12 @@ public class Wall : MonoBehaviour
                 GameObject o = new GameObject("Wall" + x + y);
                 o.AddComponent<Wall_Segment_Script>();
                 Wall_Segment_Script script = o.GetComponent<Wall_Segment_Script>();
+                o.layer = 12;
                 script.SetWallXPos(transform.position.x);
                 script.SetWallYPos(transform.position.y);
                 script.SetWallWidth(cols*width);
                 script.SetWallHeight(rows* height);
+                script.SetBuffer(buffer);
                 o.transform.parent = transform;
                 o.AddComponent<SpriteRenderer>();
                 SpriteRenderer r = o.GetComponent<SpriteRenderer>();
@@ -87,8 +93,8 @@ public class Wall : MonoBehaviour
                     }
                     else
                     {
-                        fixedJoint.breakForce = breakForce * (rows/2 - y + minForce);
-                        fixedJoint.breakTorque = breakTorque * (rows / 2 - y + minForce);
+                        fixedJoint.breakForce = breakForce * (rows/2 - y + minForce + 2);
+                        fixedJoint.breakTorque = breakTorque * (rows / 2 - y + minForce + 2);
                     }
                 }
 
@@ -116,8 +122,8 @@ public class Wall : MonoBehaviour
                     }
                     else
                     {
-                        fixedJoint.breakForce = breakForce * (rows / 2 - y + minForce);
-                        fixedJoint.breakTorque = breakTorque * (y - rows / 2 + minForce);
+                        fixedJoint.breakForce = breakForce * (rows / 2 - y + minForce + 2);
+                        fixedJoint.breakTorque = breakTorque * (y - rows / 2 + minForce + 2);
                     }
 
                 }

@@ -40,4 +40,9 @@ public class Wall_Segment_Script : MonoBehaviour
     {
         this.wallYPos = wallYPos;
     }
+
+    public void SetBuffer(float buffer)
+    {
+        this.buffer = buffer;
+    }
 }

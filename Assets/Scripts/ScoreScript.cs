@@ -13,7 +13,7 @@ public class ScoreScript : MonoBehaviour
 
     private Player_Script playerScr;
 
-    public static int scoreVaule = 0;
+    public int scoreValue = 0, highScore = 0;
     Text score;
 
     // Start is called before the first frame update
@@ -27,7 +27,11 @@ public class ScoreScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        scoreVaule = playerScr.GetScore();
-        score.text = "Score: " + scoreVaule;
+        scoreValue = playerScr.GetScore();
+        if (scoreValue > highScore)
+        {
+            highScore = scoreValue;
+        }
+        score.text = "Score: " + scoreValue + "\t\tHighScore: " + highScore;
     }
 }

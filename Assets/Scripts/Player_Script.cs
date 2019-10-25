@@ -45,13 +45,16 @@ public class Player_Script : MonoBehaviour
         angularAcceleration = 0;
         Time.timeScale = 1f;
     }
+    private void Update()
+    {
+        HandleControls();
+    }
 
     //FixedUpdate is called once every physics calculation
     void FixedUpdate()
     {
         Rigidbody2D rigidBody = GetComponent<Rigidbody2D>();
         frames++;
-        HandleControls();
         UpdateSprite();
         UpdateColliders();
         if(overSpeedPlatform)

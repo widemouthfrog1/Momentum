@@ -34,3 +34,8 @@ Another challenge I had was that originally we had small pistons that you could 
 A challenge that's yet to be fully tackled is that it's difficult to know where you're going as you can't see very far. The solution we have at the moment is a bunch of arrow/signs showing you the way. A better solution might be a minimap that shows you more of the level but with lower detail so that you can see where you're going and what your objective is.
 
 An ongoing challenge is that the pistons don't fully retract if you're spinning fast enough (due to centripedal force). The issue is that if you increase the retraction speed/force the pistons look like they just disappear when retracting. A possible solution to this is to have the force increase over time so you can still see it retracting but the centripedal force of spinning will be overcome.
+
+## Assets Used
+
+[Animated 2D Coins](https://assetstore.unity.com/packages/2d/environments/animated-2d-coins-22097) - From the Unity store, modified to fit our purpose.  
+[Universal Sound FX](https://assetstore.unity.com/packages/audio/sound-fx/universal-sound-fx-17256) - From the Unity store, small number of sounds from this pack used.  

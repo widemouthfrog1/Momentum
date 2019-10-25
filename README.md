@@ -10,7 +10,9 @@ As an extra touch, I added a timer that times how long it took you to complete t
 In order to move forward the player must work out how they con progress given the moveset they have (of changing between circle and square, rolling with the circle (and with the square in the air), and piston jumping with the square). These "puzzles" are designed to be easy to accomplish once you figure out what you need to do. Later levels could use puzzels from earlier levels conjunctively (two or more puzzels together)
 
 ## External Libraries/Assets
-No external libraries or assets were used
+  
+[Animated 2D Coins](https://assetstore.unity.com/packages/2d/environments/animated-2d-coins-22097) - From the Unity store, modified to fit our purpose.  
+[Universal Sound FX](https://assetstore.unity.com/packages/audio/sound-fx/universal-sound-fx-17256) - From the Unity store, small number of sounds from this pack used.
 
 ## How to play
 Controls:
@@ -35,7 +37,4 @@ A challenge that's yet to be fully tackled is that it's difficult to know where 
 
 An ongoing challenge is that the pistons don't fully retract if you're spinning fast enough (due to centripedal force). The issue is that if you increase the retraction speed/force the pistons look like they just disappear when retracting. A possible solution to this is to have the force increase over time so you can still see it retracting but the centripedal force of spinning will be overcome.
 
-## Assets Used
-
-[Animated 2D Coins](https://assetstore.unity.com/packages/2d/environments/animated-2d-coins-22097) - From the Unity store, modified to fit our purpose.  
-[Universal Sound FX](https://assetstore.unity.com/packages/audio/sound-fx/universal-sound-fx-17256) - From the Unity store, small number of sounds from this pack used.  
+  

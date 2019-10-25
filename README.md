@@ -33,3 +33,6 @@ Controls:
 
 'Esc' or 'P' to pause the game
 
+## Video
+
+[Demostration](https://gitlab.ecs.vuw.ac.nz/comp313-2019-a3/t9/comp313_game_prototype/blob/master/Feature%20Demostration%20Video.mp4)

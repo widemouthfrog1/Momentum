@@ -49,7 +49,6 @@ public class Player_Script : MonoBehaviour
     {
         HandleControls();
     }
-
     //FixedUpdate is called once every physics calculation
     void FixedUpdate()
     {

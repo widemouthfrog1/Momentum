@@ -3,7 +3,7 @@
 ## Karl Bennett - bennetkarl
 
 ## Game Loop
-The core game loop is move the player to traverse the level, solving puzzels based on the unique movement of the game and collects coins that change the players score. At the end of each level you are able to move on to the next level.
+The core game loop is move the player to traverse the level, solving puzzels based on the unique movement of the game and collecting coins that change the players score. At the end of each level you are able to move on to the next level.
 
 
 ## Game Flow

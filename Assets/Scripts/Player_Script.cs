@@ -41,7 +41,7 @@ public class Player_Script : MonoBehaviour
     void Start()
     {
         //defaults to square when player is created
-        mode = PLAYER_MODE.SQUARE;
+        mode = PLAYER_MODE.CIRCLE;
         angularAcceleration = 0;
         Time.timeScale = 1f;
     }

@@ -18,7 +18,6 @@ These "puzzles" are designed to be easy to accomplish once you figure out what y
   
 [Animated 2D Coins](https://assetstore.unity.com/packages/2d/environments/animated-2d-coins-22097) - From the Unity store, modified to fit our purpose.  
 [Universal Sound FX](https://assetstore.unity.com/packages/audio/sound-fx/universal-sound-fx-17256) - From the Unity store, small number of sounds from this pack used.
-
 [BezierCurveCollider2D](https://stackoverflow.com/questions/25958171/how-can-i-create-a-2d-curve-collider) - From stack overflow, modified so that the UI wasn't quite as bad.
 
 ## How to play

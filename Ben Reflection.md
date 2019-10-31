@@ -22,6 +22,7 @@ For the pause menu, I, again, did all aspects except the background image, which
 
 All other work I did on this project was just small tweaks made in the inspector and some suggestions, most notably the suggestion to change most of the public variables to serialize fields to help with encapsulation, which I feel is a good habit to get into.
 
+[Player Script](https://gitlab.ecs.vuw.ac.nz/comp313-2019-a3/t9/comp313_game_prototype/blob/master/Assets/Scripts/Player_Script.cs)  
 The most interesting part of my code, I feel, is the methods relating to the speed platforms in the player script (SpeedPaltform and ChangeVelocity). Here I had to integrate my code into code written by someone else, this code, while not written badly, was not how I would have written it, so I had to blend my code into the existing code. I feel it is also interesting because it was a situation in which I could use an optional argument, something not very common in C type languages, but something I like to use because of using R quite a bit.
 
 The bit of code I’m most proud of is the same as above for the reasons talked about there too. The thing that I am overall most happy with is the pause menu although the code for it is simple overall it had many little parts which build it. I enjoyed the challenge of getting all these parts to work together and getting something that was both visually pleasing and functional.

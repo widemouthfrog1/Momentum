@@ -5,16 +5,17 @@
 
 ## Code Discussion:
 
-CheckPoint_Script - Some
-End Level screen - Most
-I wrote the entire script, but I had based the methods off the PauseMenu script a group member had made
-Kill_Script - Touched
-I debugged the Kill method so that when the player spawned, it didn’t carry over the pistons momentum. Without this, the player will fly away from the checkpoint when respawned and possibly kill themselves. Lines 56-65
-Piston_Script - Touched
-I debugged the FixedUpdate method so that when the player switches from the circle to the square, the pistons will gain both the angular velocity and linear velocity of the player. Without this, if the player was flying in the air as the circle and then transformed to the square, the player will suddenly dive downwards Lines 76-77
-TopOnlyPlatform - All
-BezierCurverCollider2D - Some
-I was the one who found the draft of the code online and then edited it to that it would work in our project
+
+*  CheckPoint_Script - Some
+*  End Level screen - Most
+    *  I wrote the entire script, but I had based the methods off the PauseMenu script a group member had made
+*  Kill_Script - Touched
+    *  I debugged the Kill method so that when the player spawned, it didn’t carry over the pistons momentum. Without this, the player will fly away from the checkpoint when respawned and possibly kill themselves
+*  Piston_Script - Touched
+    *  I debugged the FixedUpdate method so that when the player switches from the circle to the square, the pistons will gain both the angular velocity and linear velocity of the player. Without this, if the player was flying in the air as the circle and then transformed to the square, the player will suddenly dive downwards Lines 76-77
+*  TopOnlyPlatform - All
+*  BezierCurverCollider2D - Some
+    *  I was the one who found the draft of the code online and then edited it to that it would work in our project
 
 The most interesting piece of the code I wrote probably has to be the BoxBottom() method I wrote to calculate the y-coordinate of the bottom of the square relative to the centre. This is a part of the TopOnlyPlatform script, which is used to only allow a platform to activate it’s boxcollider2D when the player is above it. I wrote the script so that the collider activates when the bottom of the player is above the top of the platform. Calculating the bottom of the circle is easy, since that is a constant distance from the centre at all times. The bottom of the square is more difficult as the distance from it to the centre changes with the rotation. To calculate this, I had to brush up on trigonometry to develop a formula that would calculate the distance from the centre of the square to the bottom-most point at every rotation.
 

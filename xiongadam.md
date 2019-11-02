@@ -10,9 +10,9 @@
 *  End Level screen - Most
     *  I wrote the entire script, but I had based the methods off the PauseMenu script a group member had made
 *  Kill_Script - Touched
-    *  I debugged the Kill method so that when the player spawned, it didn’t carry over the pistons momentum. Without this, the player will fly away from the checkpoint when respawned and possibly kill themselves
+    *  I debugged the Kill method so that when the player spawned, it didn’t carry over the pistons momentum. Without this, the player will fly away from the checkpoint when respawned and possibly kill themselves. [Here's the code](https://gitlab.ecs.vuw.ac.nz/comp313-2019-a3/t9/comp313_game_prototype/blob/master/Assets/Scripts/Kill_Script.cs#L56-65)
 *  Piston_Script - Touched
-    *  I debugged the FixedUpdate method so that when the player switches from the circle to the square, the pistons will gain both the angular velocity and linear velocity of the player. Without this, if the player was flying in the air as the circle and then transformed to the square, the player will suddenly dive downwards Lines 76-77
+    *  I debugged the FixedUpdate method so that when the player switches from the circle to the square, the pistons will gain both the angular velocity and linear velocity of the player. Without this, if the player was flying in the air as the circle and then transformed to the square, the player will suddenly dive downwards. [Here's the code](https://gitlab.ecs.vuw.ac.nz/comp313-2019-a3/t9/comp313_game_prototype/blob/master/Assets/Scripts/Piston_Script.cs#L76-77)
 *  TopOnlyPlatform - All
 *  BezierCurverCollider2D - Some
     *  I was the one who found the draft of the code online and then edited it to that it would work in our project

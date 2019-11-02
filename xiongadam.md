@@ -1,4 +1,9 @@
-# Code Discussion:
+# Adam Xiong
+# xiongadam
+# Programing Lead
+# Animal role not used
+
+## Code Discussion:
 
 CheckPoint_Script - Some
 End Level screen - Most

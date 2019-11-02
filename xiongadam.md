@@ -21,7 +21,7 @@ The most interesting piece of the code I wrote probably has to be the BoxBottom(
 
 The code I am most proud of is probably the BoxBottom() method again. Having to calculate the bottom of the box would likely be a difficult task if you hadn’t kept up with mathematics since high school, but luckily I’m also a maths student so I was able to come up with a quick and elegant solution. But as a note for the future, I’m not sure a while loop was the best way to reduce the angle to less than 45 degrees, but it worked with no noticeable lag.
 
-Learning Reflection:
+## Learning Reflection:
 I learned how to use smart commits/issues/etc in GitLab
 The importance of creating branches for the purpose of debugging/retrieving deleted code
 How to implement UI onto the canvas of a scene and write the necessary scripts to make Pause menus/Main menus/Buttons/etc
